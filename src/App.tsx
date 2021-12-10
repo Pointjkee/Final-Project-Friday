@@ -5,7 +5,7 @@ import {Test} from "./Test";
 
 
 function App() {
-
+//commit Denis
     return (
         <div className="App">
             <div><NavLink to='/login'> Go to login</NavLink></div>
@@ -14,7 +14,7 @@ function App() {
             <div><NavLink to='/newpassword'> Go to create new password</NavLink></div>
             <div><NavLink to='/restore'> Go to restore password</NavLink></div>
             <div><NavLink to='/test'> Go to test</NavLink></div>
-            <div><NavLink to='/404'> Go to 404</NavLink></div>
+            <div><NavLink to='/404'> Go to 404</NavLink>g</div>
             <Routes>
                 <Route path='/' element={<div>default</div>}/>
                 <Route path='login' element={<div>Login</div>}/>
