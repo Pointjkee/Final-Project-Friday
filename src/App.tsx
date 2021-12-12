@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {NavLink, Route, Routes} from "react-router-dom";
 import {Test} from "./Test";
+import {RestorePassword} from "./component/restorePassword/RestorePassword";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
                 <Route path='login' element={<div>Login</div>}/>
                 <Route path="register" element={<div>Register</div>}/>
                 <Route path="profile" element={<div>Profile</div>}/>
-                <Route path="restore" element={<div>Restore password</div>}/>
+                <Route path="restore" element={<div><RestorePassword/></div>}/>
                 <Route path="newpassword" element={<div>New Password</div>}/>
                 <Route path="test" element={<Test/>}/>
                 <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
