@@ -6,6 +6,7 @@ import {RestorePassword} from "./component/restorePassword/RestorePassword";
 import {Register} from './component/register/Register';
 import {NewPassword} from "./component/newPassword/newPassword";
 import {InfoSentEmail} from "./component/restorePassword/infoSentEmail/InfoSentEmail";
+import {ErrorAlert} from "./component/restorePassword/infoSentEmail/ErrorAlert";
 
 
 
@@ -16,8 +17,8 @@ function App() {
             <div><NavLink to='/login'> Go to login</NavLink></div>
             <div><NavLink to='/register'> Go to Register</NavLink></div>
             <div><NavLink to='/profile'> Go to Profile</NavLink></div>
-            {/*<div><NavLink to='/set-new-password/:token'> Go to create new password</NavLink></div>*/}
             <div><NavLink to='/restore'> Go to restore password</NavLink></div>
+            <ErrorAlert/>
             <div><NavLink to='/test'> Go to test</NavLink></div>
             <div><NavLink to='/404'> Go to 404</NavLink></div>
             <Routes>

@@ -8,27 +8,7 @@ import {AppRootStateType} from "../../store/store";
 import {useFormik} from "formik";
 import {Button, Paper, TextField} from "@material-ui/core";
 import * as Yup from 'yup';
-
-const signupSchema = Yup.object().shape({
-    email: Yup.string()
-        .email('Invalid email')
-        .required('Required field'),
-});
-
-const useStyles = makeStyles({
-    stylePaper : {
-        width: "413px",
-        height: "540px",
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: "8px",
-        left: "434px",
-        top: "84px",
-        padding: "33px",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-    }
-});
+import {useStyles} from "../newPassword/newPassword";
 
 export const RestorePassword = () => {
     const navigation = useNavigate()
@@ -49,13 +29,18 @@ export const RestorePassword = () => {
         navigation('/info-sent-email')
     }
 
+    const signupSchema = Yup.object().shape({
+        email: Yup.string()
+            .email('Invalid email')
+            .required('Required field'),
+    });
+
     const formik = useFormik({
         initialValues: {
             email: "",
         },
         validationSchema: signupSchema,
         onSubmit: values => {
-            console.log(values.email)
             sendInstruction(values.email)
         },
     });

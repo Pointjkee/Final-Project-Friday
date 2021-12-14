@@ -1,38 +1,84 @@
-import React, {useState} from "react";
-import SuperInputText from "../../common/superInputText/SuperInputText";
-import SuperButton from "../../common/superButton/SuperButton";
+import React from "react";
 import s from '../restorePassword/Restore.module.css'
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {changePassword} from "../../reducers/newPasswordReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import * as Yup from "yup";
+import {useFormik} from "formik";
+import {Button, Paper, TextField} from "@material-ui/core";
+import {makeStyles} from "@mui/styles";
+import {AppRootStateType} from "../../store/store";
+
+
+export const useStyles = makeStyles({
+    stylePaper: {
+        width: "413px",
+        height: "540px",
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: "8px",
+        left: "434px",
+        top: "84px",
+        padding: "33px",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+    }
+});
 
 export const NewPassword = () => {
-    let [password, setPassword] = useState("")
-
+    const classes = useStyles()
     const {token} = useParams()
     const dispatch = useDispatch()
+    const statusNewPassword = useSelector<AppRootStateType, boolean>(state => state.newPass.statusNewPassword)
+    const navigation = useNavigate()
 
     const resetPasswordToken = token
-
-    const updatePassword = (value: string) => {
-        setPassword(value)
-    }
-
-    const newPassword = () => {
+    const newPassword = (password: string) => {
         if (token) {
             dispatch(changePassword({password, resetPasswordToken}))
         }
     }
 
+    const signupSchema = Yup.object({
+        password: Yup.string()
+            .required('Please Enter your password')
+            .min(7)
+            .matches(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{7,}/, "Password must contain at least 7 characters, one uppercase, one number and one lowwer case character")
+    });
 
+    if (statusNewPassword) {
+        navigation('/login')
+    }
+
+    const formik = useFormik({
+        initialValues: {
+            password: "",
+        },
+        validationSchema: signupSchema,
+        onSubmit: values => {
+            newPassword(values.password)
+        },
+    });
 
     return (
-        <div>
-            <h1>It-incubator</h1>
-            <h3>Create new password </h3>
-            <SuperInputText value={password} onChangeText={updatePassword}/>
-            <h4 className={s.text}>Create new password and we will send you further instruction to email</h4>
-            <SuperButton onClick={newPassword}>Create new password</SuperButton>
-        </div>
-    )
+        <form onSubmit={formik.handleSubmit} style={{display: "flex", justifyContent: 'center', alignItems: 'center'}}>
+            <Paper className={classes.stylePaper}>
+                <h1>It-incubator</h1>
+                <h3>Create new password </h3>
+                <TextField
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
+                    sx={{width: "347px"}}
+                    variant={'standard'}
+                    id="password"
+                    name="password"
+                    type={"password"}
+                    placeholder={"Password"}
+                    onChange={formik.handleChange}
+                />
+                <h4 className={s.text}>Create new password and we will send you further instruction to email</h4>
+                <Button sx={{borderRadius: '30px', backgroundColor: "#21268F", width: "266px"}} variant={"contained"} type="submit">Create new password</Button>
+            </Paper>
+        </form>
+    );
 }
