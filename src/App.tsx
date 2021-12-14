@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {NavLink, Route, Routes} from "react-router-dom";
 import {Test} from "./Test";
+import {Login} from "./components/login/Login";
 //Max commit
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
             <div><NavLink to='/404'> Go to 404</NavLink></div>
             <Routes>
                 <Route path='/' element={<div>default</div>}/>
-                <Route path='login' element={<div>Login</div>}/>
+                <Route path='login' element={<div><Login/></div>}/>
                 <Route path="register" element={<div>Register</div>}/>
                 <Route path="profile" element={<div>Profile</div>}/>
                 <Route path="restore" element={<div>Restore password</div>}/>
