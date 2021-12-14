@@ -9,3 +9,9 @@ export const authReducer = (state: InitialStateType = initialState, action: any)
             return state
     }
 }
+
+
+
+export const SetIsLoggedIn = () =>{
+
+}
