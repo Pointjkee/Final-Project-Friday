@@ -8,7 +8,7 @@ type SuperCheckboxPropsType = DefaultInputPropsType & {
     onChangeChecked?: (checked: boolean) => void
     spanClassName?: string
     onChangeTest?: (e: ChangeEvent<HTMLInputElement>) => void
-  }
+}
 
 const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
     {
