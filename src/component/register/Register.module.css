@@ -1,4 +1,11 @@
-.inputDiv {
-    font-size: 14px;
-    color: #a9afbf;
+.main {
+height: 100%;
+}
+
+.container {
+    border: 1px black solid;
+    width: 400px;
+    padding-bottom: 100px;
+    background-color: white;
+    border-radius: 10px;
 }
