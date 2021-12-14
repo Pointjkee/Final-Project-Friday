@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {userAPI} from "../api/api";
+
 const initialState = {
 
 }
@@ -8,4 +11,16 @@ export const newPasswordReducer = (state: InitialStateType = initialState, actio
         default:
             return state
     }
+}
+
+export const changePassword = (newPassword: ChangePasswordType) => (dispatch:Dispatch) => {
+        userAPI.changePassword(newPassword)
+            .then(res=>{
+
+            })
+}
+
+export type ChangePasswordType={
+    password: string
+    resetPasswordToken: string|undefined
 }
