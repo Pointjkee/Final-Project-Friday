@@ -3,9 +3,9 @@ import SuperButton from "../../common/superButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {loginThunk} from "../../reducers/authReducer";
 import {AppRootStateType} from "../../store/store";
-import {Navigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {useFormik} from "formik";
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Link, TextField} from "@material-ui/core";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField} from "@material-ui/core";
 
 
 export const Login = () => {
@@ -18,6 +18,9 @@ export const Login = () => {
                 }
                 if (!values.password) {
                     return {password: 'Password is required'}
+                }
+                if (values.password.length < 7) {
+                    return {password: 'Password is at least seven characters'}
                 }
             },
             initialValues: {
@@ -48,14 +51,14 @@ export const Login = () => {
                                               {...formik.getFieldProps('rememberMe')}
                                               checked={formik.values.rememberMe}/>}/>
                         <div>
-                            <Link href='#/restore'>Forgot?</Link>
+                            <NavLink to='/restore'>Forgot?</NavLink>
                         </div>
                         <div>
                             <SuperButton type='submit'>sign in</SuperButton>
                         </div>
                     </FormGroup>
                     <div>
-                        <Link href='#/register'>Register</Link>
+                        <NavLink to='/register'>Register</NavLink>
                     </div>
                 </FormControl>
             </form>

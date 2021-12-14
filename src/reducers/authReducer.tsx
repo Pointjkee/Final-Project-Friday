@@ -28,12 +28,14 @@ export const loginThunk = (data: LoginParamsType) => {
     return (dispatch: Dispatch<ActionsType>) => {
         authAPI.login(data)
             .then((res) => {
-                dispatch(setIsLoggedInAC(true))
+                if (res.status === 200) {
+                    dispatch(setIsLoggedInAC(true))
+                }
             })
-            .catch((e) => {
-                debugger
-                const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
-                console.log(error)
-            })
+            .catch(e => {
+                    const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
+                    console.log(error)
+                }
+            )
     }
 }
