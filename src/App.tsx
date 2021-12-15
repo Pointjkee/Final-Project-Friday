@@ -7,7 +7,7 @@ import {Register} from './component/register/Register';
 import {NewPassword} from "./component/newPassword/newPassword";
 import {InfoSentEmail} from "./component/restorePassword/infoSentEmail/InfoSentEmail";
 import {ErrorAlert} from "./component/restorePassword/infoSentEmail/ErrorAlert";
-
+import {Login} from './component/login/Login'
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
             <div><NavLink to='/404'> Go to 404</NavLink></div>
             <Routes>
                 <Route path='/' element={<div>default</div>}/>
-                <Route path='login' element={<div>Login</div>}/>
+                <Route path='login' element={<div><Login/></div>}/>
                 <Route path="register" element={<div><Register/></div>}/>
                 <Route path="profile" element={<div>Profile</div>}/>
                 <Route path="restore" element={<div><RestorePassword/></div>}/>
