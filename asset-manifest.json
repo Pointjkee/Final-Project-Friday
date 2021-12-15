@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Final-Project-Friday/static/css/main.d13d6214.chunk.css",
-    "main.js": "/Final-Project-Friday/static/js/main.aa9a6b23.chunk.js",
-    "main.js.map": "/Final-Project-Friday/static/js/main.aa9a6b23.chunk.js.map",
-    "runtime-main.js": "/Final-Project-Friday/static/js/runtime-main.b1ba1adf.js",
-    "runtime-main.js.map": "/Final-Project-Friday/static/js/runtime-main.b1ba1adf.js.map",
-    "static/js/2.e02e3ac0.chunk.js": "/Final-Project-Friday/static/js/2.e02e3ac0.chunk.js",
-    "static/js/2.e02e3ac0.chunk.js.map": "/Final-Project-Friday/static/js/2.e02e3ac0.chunk.js.map",
-    "static/js/3.162ddd1c.chunk.js": "/Final-Project-Friday/static/js/3.162ddd1c.chunk.js",
-    "static/js/3.162ddd1c.chunk.js.map": "/Final-Project-Friday/static/js/3.162ddd1c.chunk.js.map",
+    "main.css": "/Final-Project-Friday/static/css/main.052588e6.chunk.css",
+    "main.js": "/Final-Project-Friday/static/js/main.8beec825.chunk.js",
+    "main.js.map": "/Final-Project-Friday/static/js/main.8beec825.chunk.js.map",
+    "runtime-main.js": "/Final-Project-Friday/static/js/runtime-main.a2fad2a4.js",
+    "runtime-main.js.map": "/Final-Project-Friday/static/js/runtime-main.a2fad2a4.js.map",
+    "static/js/2.5397dee0.chunk.js": "/Final-Project-Friday/static/js/2.5397dee0.chunk.js",
+    "static/js/2.5397dee0.chunk.js.map": "/Final-Project-Friday/static/js/2.5397dee0.chunk.js.map",
+    "static/js/3.4659bf3a.chunk.js": "/Final-Project-Friday/static/js/3.4659bf3a.chunk.js",
+    "static/js/3.4659bf3a.chunk.js.map": "/Final-Project-Friday/static/js/3.4659bf3a.chunk.js.map",
     "index.html": "/Final-Project-Friday/index.html",
-    "static/css/main.d13d6214.chunk.css.map": "/Final-Project-Friday/static/css/main.d13d6214.chunk.css.map",
-    "static/js/2.e02e3ac0.chunk.js.LICENSE.txt": "/Final-Project-Friday/static/js/2.e02e3ac0.chunk.js.LICENSE.txt"
+    "static/css/main.052588e6.chunk.css.map": "/Final-Project-Friday/static/css/main.052588e6.chunk.css.map",
+    "static/js/2.5397dee0.chunk.js.LICENSE.txt": "/Final-Project-Friday/static/js/2.5397dee0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b1ba1adf.js",
-    "static/js/2.e02e3ac0.chunk.js",
-    "static/css/main.d13d6214.chunk.css",
-    "static/js/main.aa9a6b23.chunk.js"
+    "static/js/runtime-main.a2fad2a4.js",
+    "static/js/2.5397dee0.chunk.js",
+    "static/css/main.052588e6.chunk.css",
+    "static/js/main.8beec825.chunk.js"
   ]
 }
