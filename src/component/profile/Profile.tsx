@@ -33,8 +33,8 @@ const Profile = () => {
                 <div className={s.info_form}>
                     <span>NickName</span>
                     <Input {...register('name')}/>
-                    <span>Email</span>
-                    <Input {...register('email')}/>
+                    <span>Image Url</span>
+                    <Input {...register('image')}/>
                 </div>
                 <div className={s.button}>
                     <Button onClick={deactivateEditMode} variant="contained" color="secondary">Cancel</Button>
