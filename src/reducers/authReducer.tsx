@@ -12,8 +12,10 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-export const authReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
+        case 'LOGIN':
+            return {...state, isLoggedIn: action.value}
         default:
             return state
     }
