@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import s from '../restorePassword/Restore.module.css'
 import {useNavigate, useParams} from "react-router-dom";
 import {changePassword} from "../../reducers/newPasswordReducer";
@@ -8,6 +8,8 @@ import {useFormik} from "formik";
 import {Button, Paper, TextField} from "@material-ui/core";
 import {makeStyles} from "@mui/styles";
 import {AppRootStateType} from "../../store/store";
+import {IconButton, InputAdornment} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 
 export const useStyles = makeStyles({
@@ -31,6 +33,11 @@ export const NewPassword = () => {
     const dispatch = useDispatch()
     const statusNewPassword = useSelector<AppRootStateType, boolean>(state => state.newPass.statusNewPassword)
     const navigation = useNavigate()
+    const [pass, setPass] = useState<boolean>(false)
+
+    const togglePassword = () => {
+        setPass(!pass)
+    }
 
     const resetPasswordToken = token
     const newPassword = (password: string) => {
@@ -72,9 +79,22 @@ export const NewPassword = () => {
                     variant={'standard'}
                     id="password"
                     name="password"
-                    type={"password"}
+                    type={pass ? 'text' : 'password'}
                     placeholder={"Password"}
                     onChange={formik.handleChange}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={togglePassword}
+                                    edge="end"
+                                >
+                                    {pass ? <VisibilityOff/> : <Visibility/>}
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
                 />
                 <h4 className={s.text}>Create new password and we will send you further instruction to email</h4>
                 <Button sx={{borderRadius: '30px', backgroundColor: "#21268F", width: "266px"}} variant={"contained"} type="submit">Create new password</Button>
