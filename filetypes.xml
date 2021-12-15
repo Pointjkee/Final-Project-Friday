@@ -1,0 +1,11 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping pattern="EditSpan" type="PLAIN_TEXT" />
+      <mapping pattern="AddMessageForm.tsx" type="PLAIN_TEXT" />
+      <mapping pattern="ReduxStoreProviderDecorator.tsx" type="PLAIN_TEXT" />
+      <mapping pattern="minReducer" type="TypeScript" />
+      <mapping pattern="AddMessageForm" type="TypeScript JSX" />
+    </extensionMap>
+  </component>
+</application>
