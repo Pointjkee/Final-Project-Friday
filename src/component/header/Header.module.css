@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    background: #EBE0E9;
+    box-shadow:  2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+}
+
+.container a {
+    text-decoration: none;
+}
