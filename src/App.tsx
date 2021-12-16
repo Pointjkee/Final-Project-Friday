@@ -1,37 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import {NavLink, Route, Routes} from "react-router-dom";
-import {Test} from "./Test";
-import {RestorePassword} from "./component/restorePassword/RestorePassword";
-import {Register} from './component/register/Register';
-import {NewPassword} from "./component/newPassword/newPassword";
-import {InfoSentEmail} from "./component/restorePassword/infoSentEmail/InfoSentEmail";
-import {ErrorAlert} from "./component/restorePassword/infoSentEmail/ErrorAlert";
-import {Login} from './component/login/Login'
+import Header from "./component/header/Header";
+import RoutesC from "./component/routes/RoutesC";
+import {Preloader} from "./common/preloader/Preloader";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./store/store";
+import {RequestStatusType} from "./reducers/appReducer";
+import {authMe} from "./reducers/authReducer";
 
 
 function App() {
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status);
+    const dispatch = useDispatch()
+
+
+    useEffect(() => {
+        dispatch(authMe())
+    }, [])
+
+    if (status === 'loading') {
+        return <Preloader/>
+    }
 
     return (
         <div className="App">
-            <div><NavLink to='/login'> Go to login</NavLink></div>
-            <div><NavLink to='/register'> Go to Register</NavLink></div>
-            <div><NavLink to='/profile'> Go to Profile</NavLink></div>
-            <div><NavLink to='/restore'> Go to restore password</NavLink></div>
-            <ErrorAlert/>
-            <div><NavLink to='/test'> Go to test</NavLink></div>
-            <div><NavLink to='/404'> Go to 404</NavLink></div>
-            <Routes>
-                <Route path='/' element={<div>default</div>}/>
-                <Route path='login' element={<div><Login/></div>}/>
-                <Route path="register" element={<div><Register/></div>}/>
-                <Route path="profile" element={<div>Profile</div>}/>
-                <Route path="restore" element={<div><RestorePassword/></div>}/>
-                <Route path="/set-new-password/:token" element={<NewPassword/>}/>
-                <Route path="info-sent-email" element={<InfoSentEmail/>}/>
-                <Route path="test" element={<Test/>}/>
-                <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
-            </Routes>
+            <Header/>
+            <RoutesC/>
         </div>
     )
 }
