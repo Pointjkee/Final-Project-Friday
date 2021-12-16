@@ -1,10 +1,10 @@
 import * as React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-
+import {CircularProgress} from "@mui/material";
+import s from './Preloader.module.css'
 
 export const Preloader=()=> {
     return (
-       <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
+       <div className={s.loader}>
            <CircularProgress />
        </div>
     );
