@@ -1,7 +1,6 @@
 import React from "react";
-import { makeStyles } from '@mui/styles'
-import s from '../restorePassword/Restore.module.css'
 import {SendInstructionToEmail} from "../../reducers/restoreReducer";
+import s from './Restore.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {AppRootStateType} from "../../store/store";
@@ -18,8 +17,7 @@ export const RestorePassword = () => {
 
     const from = "test-front-admin <ai73a@yandex.by>"
     const message = `<div style="background-color: lime; padding: 15px">
-	<a href='http://localhost:3000/#/set-new-password/$token$'>	
-	link</a></div>`
+	<a href='https://pointjkee.github.io/Final-Project-Friday/set-new-password/$token$'>Change Password</a></div>`
 
     const sendInstruction = (email: string) => {
         dispatch(SendInstructionToEmail({email, from, message}))
