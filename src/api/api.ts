@@ -18,9 +18,29 @@ export const userAPI = {
     },
     login(data: LoginParamsType) {
         return instance.post<ResponseType>('auth/login', data)
+    },
+    logOut(){
+        return instance.delete('/auth/me')
+    },
+    me() {
+        return instance.post('/auth/me')
+    },
+}
+
+
+
+export const profileAPI ={
+    setProfile(data:SetProfileType){
+        return instance.put('/auth/me', data)
     }
 }
 
+
+
+export type SetProfileType = {
+    name: string
+    avatar: string | null
+}
 
 type AuthResponseType = {
     info: string
