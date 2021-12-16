@@ -17,7 +17,7 @@ export const RestorePassword = () => {
 
     const from = "test-front-admin <ai73a@yandex.by>"
     const message = `<div style="background-color: lime; padding: 15px">
-	<a href='https://pointjkee.github.io/Final-Project-Friday/set-new-password/$token$'>Change Password</a></div>`
+	<a href='https://pointjkee.github.io/Final-Project-Friday/#/set-new-password/$token$'>Change Password</a></div>`
 
     const sendInstruction = (email: string) => {
         dispatch(SendInstructionToEmail({email, from, message}))
