@@ -9,8 +9,6 @@ import {NewPassword} from "../newPassword/newPassword";
 import {InfoSentEmail} from "../restorePassword/infoSentEmail/InfoSentEmail";
 
 
-
-
 const RoutesC = () => {
     return (
         <div>
