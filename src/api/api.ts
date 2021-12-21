@@ -35,7 +35,36 @@ export const profileAPI ={
     }
 }
 
+export const packAPI = {
+    getPack(){
+        return instance.get<GetPackType>(`/cards/pack`)
+    }
+}
 
+export type GetPackType = {
+    cardPacks: [
+        {
+            _id: string
+            user_id: string
+            name: string
+            path: string
+            cardsCount: number
+            grade: number
+            shots: number
+            rating: number
+            type: string
+            created: string
+            updated: string
+            __v: number
+        },
+    ]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+
+}
 
 export type SetProfileType = {
     name: string
