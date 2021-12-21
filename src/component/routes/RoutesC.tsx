@@ -7,6 +7,7 @@ import Profile from "../profile/Profile";
 import {Login} from "../login/Login";
 import {NewPassword} from "../newPassword/newPassword";
 import {InfoSentEmail} from "../restorePassword/infoSentEmail/InfoSentEmail";
+import {Packs} from "../packs/Packs";
 
 
 const RoutesC = () => {
@@ -21,6 +22,7 @@ const RoutesC = () => {
                 <Route path="/set-new-password/:token" element={<NewPassword/>}/>
                 <Route path="info-sent-email" element={<InfoSentEmail/>}/>
                 <Route path="test" element={<Test/>}/>
+                <Route path="packs" element={<Packs/>}/>
                 <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
             </Routes>
         </div>
