@@ -10,16 +10,16 @@ export const userAPI = {
     register(email: string, password: string) {
         return instance.post(`/auth/register/`, {email, password});
     },
-    restorePassword(forgot: ForgotType){
+    restorePassword(forgot: ForgotType) {
         return instance.post<AxiosResponse<AuthResponseType>>(`/auth/forgot`, forgot)
     },
-    changePassword(newPassword: ChangePasswordType){
+    changePassword(newPassword: ChangePasswordType) {
         return instance.post<AxiosResponse<AuthResponseType>>(`/auth/set-new-password`, newPassword)
     },
     login(data: LoginParamsType) {
         return instance.post<ResponseType>('auth/login', data)
     },
-    logOut(){
+    logOut() {
         return instance.delete('/auth/me')
     },
     me() {
@@ -28,13 +28,29 @@ export const userAPI = {
 }
 
 
-
-export const profileAPI ={
-    setProfile(data:SetProfileType){
+export const profileAPI = {
+    setProfile(data: SetProfileType) {
         return instance.put('/auth/me', data)
     }
 }
 
+
+export const cardsAPI = {
+    getCards(params: CardsParamsType) {
+        const {min, max, sortCards, page, pageCount} = params
+        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount}})
+    },
+    setCards(cards: NewCardsType) {
+        return instance.post('/cards/card', {card: {...cards}})
+    },
+    deleteCard(cardId: string) {
+        return instance.delete('/cards/card', {params: {id: cardId}})
+    },
+    updateCard(updateCard:UpdateCardType) {
+        return instance.put('/cards/card',{card:{...updateCard}})
+    },
+
+}
 
 
 export type SetProfileType = {
@@ -65,4 +81,42 @@ export type LoginParamsType = {
     email: string;
     password: string;
     rememberMe: boolean;
+}
+
+export type CardsParamsType = {
+    cardsPack_id: string
+    min?: number
+    max?: number
+    sortCards?: number
+    page?: number
+    pageCount?: number
+}
+
+export type NewCardsType = {
+    cardsPack_id: string
+    question: string
+    answer: string
+    grade?: number
+    shots?: number
+    rating?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+    type: string
+}
+
+export type UpdateCardType = {
+    _id: string
+    question?: string
+    answer?: string
+    grade?: number
+    shots?: number
+    rating?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+    type?: string
+    comments?: string
 }
