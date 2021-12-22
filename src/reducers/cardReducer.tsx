@@ -1,4 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppRootStateType} from "../store/store";
+import {Dispatch} from "redux";
+import {setAppStatus} from "./appReducer";
+import {cardsAPI} from "../api/api";
 
 
 const initialState = {
@@ -11,7 +15,7 @@ const initialState = {
     packUserId: '' as string
 }
 
-
+export type InitialStateCardType = typeof initialState
 
 export const slice = createSlice({
     name: 'card',
@@ -27,7 +31,6 @@ export const slice = createSlice({
 export const cardReducer = slice.reducer
 export const {setCard} = slice.actions
 
-
 export type CardType = {
     answer: string
     question: string
@@ -41,4 +44,28 @@ export type CardType = {
     updated: Date
     __v: number
     _id: string
+}
+
+export const getCards = (id:string) =>(dispatch:Dispatch,getState: ()=> AppRootStateType)=>{
+    const state = getState().card
+    const page = state.page
+    const pageCount = state.pageCount
+    const minGrade = state.minGrade
+    const maxGrade = state.maxGrade
+    /*dispatch(setAppStatus('loading'))*/
+    console.log(id)
+    cardsAPI.getCards({
+        cardsPack_id:id,
+        page,
+        pageCount,
+        min: minGrade,
+        max: maxGrade
+    })
+        .then(res => {
+           dispatch( setCard(res.data))
+            dispatch(setAppStatus('success'))
+        })
+        .catch(error =>{
+            console.log(error)
+        })
 }
