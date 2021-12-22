@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 
 const columns: GridColDef[] = [
     // {field: 'id', headerName: 'ID', width: 70 },
-    {field: 'name', headerName: 'Name pack', width: 650, sortable: false, disableColumnMenu: true},
+    {field: 'name', headerName: 'Name pack', width: 650, sortable: false, disableColumnMenu: false},
     {
         field: 'cardsCount',
         headerName: 'Cards count',
@@ -21,7 +21,7 @@ const columns: GridColDef[] = [
     {
         field: 'actions',
         headerName: 'Actions',
-        width: 140,
+        width: 160,
         align: 'right',
         sortable: false,
         disableColumnMenu: true,
@@ -37,8 +37,14 @@ const columns: GridColDef[] = [
                         (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
                     );
                 return alert(JSON.stringify(thisRow, null, 4));
-            };
-            return <Button onClick={onClick}>Click</Button>;
+            }
+            const onClick2 = () => {
+                return alert('to be continued')
+            }
+            return <span>
+                <Button style={{color:'black', border: "1px black solid", marginRight:5}} variant='outlined' size='small' onClick={onClick}>Click</Button>
+                <Button style={{color:'black', border: "1px black solid"}} variant='outlined' size='small' onClick={onClick2} >Click2</Button>
+            </span>
         },
     }
 ];
