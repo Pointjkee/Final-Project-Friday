@@ -47,8 +47,6 @@ export const packReducer = (state: InitialStateTypeProfile = initialState, actio
 type SetPackType = ReturnType<typeof setStatePack>
 export const setStatePack = (data: GetPackType) => ({type: "PACK/SET-PACK", data} as const)
 
-export const getPack = () => (dispatch: Dispatch) => {
-    packAPI.getPack().then(res => {
 export const getPack = (): PackThunkType => (dispatch) => {
     packAPI.getPack().then(res => {
         dispatch(setStatePack(res.data))
