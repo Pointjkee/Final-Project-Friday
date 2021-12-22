@@ -5,8 +5,9 @@
     flex-direction: column;
     background: white;
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 15px;
     border-radius: 10px;
+    top: 100px;
 }
 
 .buttonBlock {

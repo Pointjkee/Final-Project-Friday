@@ -25,8 +25,8 @@ export const Login = () => {
                 }
             },
             initialValues: {
-                email: '',
-                password: '',
+                email: 'nya-admin@nya.nya',
+                password: '1qazxcvBG',
                 rememberMe: false
             },
             onSubmit: values => {

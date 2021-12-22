@@ -29,12 +29,12 @@ export const setIsLoggedInAC = (value: boolean): setIsLoggedInAT => ({type: 'LOG
 
 export const loginThunk = (data: LoginParamsType) => {
     return (dispatch: Dispatch) => {
+        dispatch(setAppStatus('loading'))
         userAPI.login(data)
             .then((res) => {
-                if (res.status === 200) {
-                    dispatch(setProfile(res.data))
-                    dispatch(setIsLoggedInAC(true))
-                }
+                dispatch(setProfile(res.data))
+                dispatch(setIsLoggedInAC(true))
+                dispatch(setAppStatus('success'))
             })
             .catch(e => {
                     const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
@@ -48,19 +48,20 @@ export const loginThunk = (data: LoginParamsType) => {
 export const logOut = () => (dispatch: Dispatch) => {
     dispatch(setAppStatus('loading'))
     userAPI.logOut()
-        .then(res=>{
+        .then(res => {
             dispatch(setProfile({
-                _id: null,
-                email: null,
-                name: '',
-                avatar: null,
-                publicCardPacksCount: null,
-                created: null,
-                updated: null,
-                isAdmin: null,
-                verified: null,
-                rememberMe: null,
-                error: null})
+                    _id: null,
+                    email: null,
+                    name: '',
+                    avatar: null,
+                    publicCardPacksCount: null,
+                    created: null,
+                    updated: null,
+                    isAdmin: null,
+                    verified: null,
+                    rememberMe: null,
+                    error: null
+                })
             )
             dispatch(setAppStatus('success'))
             dispatch(setIsLoggedInAC(false))
@@ -70,7 +71,6 @@ export const logOut = () => (dispatch: Dispatch) => {
                 : (e.message + ', more details in the console');
             console.log(error)
         })
-
 
 
 }

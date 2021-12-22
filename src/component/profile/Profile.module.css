@@ -1,6 +1,6 @@
 .container {
     width: 413px;
-    height: 540px;
+    height: 500px;
     left: calc(50% - 206px);
     top: 84px;
     box-shadow: 4px 8px 25px -3px rgba(180, 180, 180, 0.35);
@@ -10,6 +10,8 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    margin-bottom: 15%;
+    margin-top: 0;
 }
 
 .form {
