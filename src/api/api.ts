@@ -37,7 +37,7 @@ export const profileAPI ={
 
 export const packAPI = {
     getPack(){
-        return instance.get<GetPackType>(`/cards/pack`)
+        return instance.get<GetPackType>(`/cards/pack?pageCount=${16}`)
     }
 }
 
