@@ -3,16 +3,18 @@ import s from './CardsTable.module.css'
 import Card from "./card/Card";
 import {AppRootStateType} from "../../store/store";
 import {useDispatch, useSelector} from "react-redux";
-import {getCards, InitialStateCardType} from "../../reducers/cardReducer";
+import {CardType, getCards, InitialStateCardType} from "../../reducers/cardReducer";
 import {useParams} from "react-router-dom";
 
 
-export const CardsTable = () => {
-    const cardTab = useSelector<AppRootStateType,InitialStateCardType>(state=>state.card)
-    const dispatch = useDispatch()
-    const {id} = useParams<{id:string}>()
 
-    const {cards,
+export const CardsTable = () => {
+   const {id} = useParams<{id:string|undefined}>()
+    const dispatch = useDispatch()
+    const cardTab = useSelector<AppRootStateType,InitialStateCardType>(state=>state.card)
+    const cards = useSelector<AppRootStateType,CardType[]>(state => state.card.cards)
+
+    const {
         cardsTotalCount,
         maxGrade,
         minGrade,
@@ -20,9 +22,7 @@ export const CardsTable = () => {
         pageCount,
         packUserId} = cardTab
 
-
     useEffect(()=>{
-        // @ts-ignore
         dispatch(getCards(id))
     },[])
 
@@ -32,27 +32,22 @@ export const CardsTable = () => {
                 <thead>
                 <tr>
                     <th>Question
-                        {/*<SortBtn property={'question'} sortStatus={tabletInfo.sortCards}
-                                 onSortBtnHandler={onSortBtnHandler}/>*/}
                     </th>
 
                     <th>Answer
-                        {/*<SortBtn property={'answer'} sortStatus={tabletInfo.sortCards}
-                                 onSortBtnHandler={onSortBtnHandler}/>*/}
                     </th>
                     <th>Grade
-                        {/*<SortBtn property={'grade'} sortStatus={tabletInfo.sortCards}
-                                 onSortBtnHandler={onSortBtnHandler}/>*/}
+
                     </th>
                     <th>Updated
-                       {/* <SortBtn property={'updated'} sortStatus={tabletInfo.sortCards}
-                                 onSortBtnHandler={onSortBtnHandler}/>*/}
+
                     </th>
                     <th>Action</th>
                 </tr>
                 </thead>
-               <Card cards={cards}/>
+                <Card cards={cards}/>
             </table>
+
         </div>
     );
 };

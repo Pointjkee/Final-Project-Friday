@@ -3,6 +3,7 @@ import {ForgotType} from "../reducers/restoreReducer";
 import {ChangePasswordType} from "../reducers/newPasswordReducer";
 import {PostPackType, UpdatePackType} from "../reducers/packReducer";
 
+
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
@@ -53,8 +54,8 @@ export const packAPI = {
 
 export const cardsAPI = {
     getCards(params: CardsParamsType) {
-        const {min, max, sortCards, page, pageCount} = params
-        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount}})
+        const {min, max, sortCards, page, pageCount,cardsPack_id} = params
+        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount,cardsPack_id}})
     },
     setCards(cards: NewCardsType) {
         return instance.post('/cards/card', {card: {...cards}})
@@ -124,7 +125,7 @@ export type LoginParamsType = {
 }
 
 export type CardsParamsType = {
-    cardsPack_id: string
+    cardsPack_id: string|undefined
     min?: number
     max?: number
     sortCards?: number

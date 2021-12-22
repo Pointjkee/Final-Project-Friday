@@ -17,19 +17,22 @@ const initialState = {
 
 export type InitialStateCardType = typeof initialState
 
-export const slice = createSlice({
-    name: 'card',
-    initialState: initialState,
-    reducers: {
-        setCard(state, action:PayloadAction<typeof initialState>){
-            state = action.payload
-        },
 
-    }
-})
 
-export const cardReducer = slice.reducer
-export const {setCard} = slice.actions
+export const cardReducer = (state:InitialStateCardType=initialState, action: ActionsType):InitialStateCardType =>{
+            switch(action.type){
+                case "SET_CARD_INFO":
+                    return action.data
+                default:
+                    return state
+            }
+}
+
+export const setCard = (data:InitialStateCardType) =>{
+    return {type:"SET_CARD_INFO", data} as const}
+
+
+type ActionsType = ReturnType<typeof setCard>
 
 export type CardType = {
     answer: string
@@ -46,14 +49,13 @@ export type CardType = {
     _id: string
 }
 
-export const getCards = (id:string) =>(dispatch:Dispatch,getState: ()=> AppRootStateType)=>{
+export const getCards = (id:string|undefined) =>(dispatch:Dispatch,getState: ()=> AppRootStateType)=>{
     const state = getState().card
     const page = state.page
     const pageCount = state.pageCount
     const minGrade = state.minGrade
     const maxGrade = state.maxGrade
-    /*dispatch(setAppStatus('loading'))*/
-    console.log(id)
+   /* dispatch(setAppStatus('loading'))*/
     cardsAPI.getCards({
         cardsPack_id:id,
         page,
