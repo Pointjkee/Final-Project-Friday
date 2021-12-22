@@ -8,6 +8,7 @@ import {newPasswordReducer} from "../reducers/newPasswordReducer";
 import {appReducer} from "../reducers/appReducer";
 import {configureStore} from "@reduxjs/toolkit";
 import {packReducer} from "../reducers/packReducer";
+import {cardReducer} from "../reducers/cardReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     restorePass: restorePassReducer,
     newPass: newPasswordReducer,
     pack: packReducer,
+    card: cardReducer,
 })
 
 export const store = configureStore({
