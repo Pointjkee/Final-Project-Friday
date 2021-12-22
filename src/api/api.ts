@@ -1,6 +1,7 @@
 import axios, {AxiosResponse} from 'axios'
 import {ForgotType} from "../reducers/restoreReducer";
 import {ChangePasswordType} from "../reducers/newPasswordReducer";
+import {PostPackType, UpdatePackType} from "../reducers/packReducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -10,16 +11,16 @@ export const userAPI = {
     register(email: string, password: string) {
         return instance.post(`/auth/register/`, {email, password});
     },
-    restorePassword(forgot: ForgotType){
+    restorePassword(forgot: ForgotType) {
         return instance.post<AxiosResponse<AuthResponseType>>(`/auth/forgot`, forgot)
     },
-    changePassword(newPassword: ChangePasswordType){
+    changePassword(newPassword: ChangePasswordType) {
         return instance.post<AxiosResponse<AuthResponseType>>(`/auth/set-new-password`, newPassword)
     },
     login(data: LoginParamsType) {
         return instance.post<ResponseType>('auth/login', data)
     },
-    logOut(){
+    logOut() {
         return instance.delete('/auth/me')
     },
     me() {
@@ -28,17 +29,26 @@ export const userAPI = {
 }
 
 
-
-export const profileAPI ={
-    setProfile(data:SetProfileType){
+export const profileAPI = {
+    setProfile(data: SetProfileType) {
         return instance.put('/auth/me', data)
     }
 }
 
 export const packAPI = {
-    getPack(){
-        return instance.get<GetPackType>(`/cards/pack?pageCount=${16}`)
+    getPack(data?: any) {
+        return instance.get<GetPackType>(`/cards/pack?pageCount=${16}`, data)
+    },
+    postPack(data?: PostPackType) {
+        return instance.post(`cards/pack`, data = {cardsPack: {}})
+    },
+    deletePack(id: string) {
+        return instance.delete(`cards/pack/?id=${id}`)
+    },
+    updatePack(data: UpdatePackType) {
+        return instance.put(`cards/pack`, data = {cardsPack:{_id:data.cardsPack._id,name:"updatePackName"}})
     }
+
 }
 
 export const cardsAPI = {
