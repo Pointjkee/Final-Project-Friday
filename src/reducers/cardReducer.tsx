@@ -1,38 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppRootStateType} from "../store/store";
 import {Dispatch} from "redux";
-import {setAppStatus} from "./appReducer";
 import {cardsAPI} from "../api/api";
-
-
-const initialState = {
-    cards:[] as CardType[],
-    cardsTotalCount: 0,
-    maxGrade: 0,
-    minGrade: 0,
-    page: 1,
-    pageCount: 4,
-    packUserId: '' as string
-}
-
-export type InitialStateCardType = typeof initialState
-
-
-
-export const cardReducer = (state:InitialStateCardType=initialState, action: ActionsType):InitialStateCardType =>{
-            switch(action.type){
-                case "SET_CARD_INFO":
-                    return action.data
-                default:
-                    return state
-            }
-}
-
-export const setCard = (data:InitialStateCardType) =>{
-    return {type:"SET_CARD_INFO", data} as const}
-
-
-type ActionsType = ReturnType<typeof setCard>
 
 export type CardType = {
     answer: string
@@ -48,26 +17,72 @@ export type CardType = {
     __v: number
     _id: string
 }
+export type InitialStateCardType = typeof initialState
+type LoadingCardType =  'loading' | 'success' | 'error'
 
-export const getCards = (id:string|undefined) =>(dispatch:Dispatch,getState: ()=> AppRootStateType)=>{
+const initialState = {
+    cards: [] as CardType[],
+    cardsTotalCount: 0,
+    maxGrade: 0,
+    minGrade: 0,
+    page: 0,
+    pageCount: 4,
+    packUserId: '' as string,
+    loadingStatus: 'success' as LoadingCardType
+}
+
+
+export const slice = createSlice({
+    name: 'cards',
+    initialState,
+    reducers: {
+        setCard(state,action:PayloadAction<InitialStateCardType>){
+            return action.payload
+        },
+        setPage(state,action:PayloadAction<{page:number}>){
+            state.page = action.payload.page
+        },
+        resetCards(state,action:PayloadAction<{cards:CardType[],cardsTotalCount:number}>) {
+           state.cards = action.payload.cards
+            state.cardsTotalCount = action.payload.cardsTotalCount
+        },
+        statusCard(state,action:PayloadAction<{status:LoadingCardType}>){
+          state.loadingStatus = action.payload.status
+        },
+    }
+})
+
+export const cardReducer = slice.reducer
+export const {setCard,setPage,resetCards,statusCard} = slice.actions
+
+
+
+export const getCards = (id: string | undefined) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const state = getState().card
     const page = state.page
     const pageCount = state.pageCount
     const minGrade = state.minGrade
     const maxGrade = state.maxGrade
-   /* dispatch(setAppStatus('loading'))*/
-    cardsAPI.getCards({
-        cardsPack_id:id,
+    dispatch(statusCard({status:'loading'}))
+  cardsAPI.getCards({
+        cardsPack_id: id,
         page,
         pageCount,
         min: minGrade,
         max: maxGrade
     })
         .then(res => {
-           dispatch( setCard(res.data))
-            dispatch(setAppStatus('success'))
+            if(res.data.cards.length !== 0)
+                dispatch(setCard(res.data))
         })
-        .catch(error =>{
+        .catch(error => {
             console.log(error)
         })
+
+}
+
+
+export const resetCardsTC = ()=>(dispatch:Dispatch)=>{
+    dispatch(statusCard({status:'loading'}))
+    dispatch(resetCards({cards:[],cardsTotalCount:0}))
 }

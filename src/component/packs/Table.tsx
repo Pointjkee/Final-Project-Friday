@@ -27,23 +27,11 @@ const columns: GridColDef[] = [
         sortable: false,
         disableColumnMenu: true,
         renderCell: (params) => {
-            const onClick = (e: any) => {
-                e.stopPropagation(); // don't select this row after clicking
-                const api: GridApi = params.api;
-                const thisRow: Record<string, GridCellValue> = {};
-                api
-                    .getAllColumns()
-                    .filter((c) => c.field !== '__check__' && !!c)
-                    .forEach(
-                        (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                    );
-                return alert(params.id)
-            }
             const onClick2 = () => {
                 return alert('to be continued')
             }
             return <span>
-                <NavLink to={'/cards/'+ params.id}><Button style={{color:'black', border: "1px black solid", marginRight:5}} variant='outlined' size='small'>Cards</Button></NavLink>
+                <NavLink to={'/cards/'+ params.id} style={{textDecoration:'none'}}><Button style={{color:'black', border: "1px black solid", marginRight:5}} variant='outlined' size='small'>Cards</Button></NavLink>
                 <Button style={{color:'black', border: "1px black solid"}} variant='outlined' size='small' onClick={onClick2} >Click2</Button>
             </span>
         },

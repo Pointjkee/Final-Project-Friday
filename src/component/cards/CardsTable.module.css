@@ -1,34 +1,57 @@
 
+.container {
+    position: relative;
+    width: 1008px;
+    height: 636px;
+    left: calc(50% - 504px);
+    top: 84px;
+    background: #FEFEFF;
+    border-radius: 8px;
+}
+
 
 .table {
-    width: 100%;
-    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-
+    border-collapse: collapse;
+    position: relative;
+    width: 960px;
+    height: 432px;
+    top: 40px;
+    border: 1px solid #ECECF9;
+    left: calc(50% - 480px);
+    border-radius: 8px;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3)
 }
-.mainTab thead {
+
+
+.table_head {
+    width: 960px;
     height: 48px;
-    vertical-align: middle;
+    top: 50px;
     background: #ECECF9;
 }
-.mainTab thead th {
-    vertical-align: middle;
-    padding: 0 10px;
-    font-weight: bold;
-    font-size: 15px;
+
+.paginator {
+    position: absolute;
+    top: 590px;
+    left: 20px
 }
 
-.mainTab tbody td {
-    height: 48px;
-    padding: 0 10px;
-    font-size: 14px;
-    vertical-align: middle;
+.arrow__container{
+    display: flex;
+    width: 190px;
+    align-items: center;
+    padding: 40px 40px;
+    cursor: pointer;
 }
 
-
-.mainTab tbody tr:nth-child(even) {
-    background: #F8F7FD;
+.arrow{
+    display: flex;
+    align-items: center;
 }
-.mainTab tbody td button {
-    padding: 5px 25px;
-    font-size: 13px;
+
+.arrow__title{
+    padding-left: 10px;
+    display: flex;
+    font-weight: 600;
+    font-size: 20px;
 }
