@@ -1,0 +1,12 @@
+.table_body{
+    width: 960px;
+    height: 48px;
+    left: 160px;
+    top: 264px;
+
+    background: #FFFFFF;
+}
+
+.table_column{
+    height: 48px;
+}

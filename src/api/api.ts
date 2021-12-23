@@ -3,6 +3,7 @@ import {ForgotType} from "../reducers/restoreReducer";
 import {ChangePasswordType} from "../reducers/newPasswordReducer";
 import {PostPackType, UpdatePackType} from "../reducers/packReducer";
 
+
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
@@ -48,6 +49,23 @@ export const packAPI = {
     updatePack(data: UpdatePackType) {
         return instance.put(`cards/pack`, data = {cardsPack:{_id:data.cardsPack._id,name:"updatePackName"}})
     }
+
+}
+
+export const cardsAPI = {
+    getCards(params: CardsParamsType) {
+        const {min, max, sortCards, page, pageCount,cardsPack_id} = params
+        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount,cardsPack_id}})
+    },
+    setCards(cards: NewCardsType) {
+        return instance.post('/cards/card', {card: {...cards}})
+    },
+    deleteCard(cardId: string) {
+        return instance.delete('/cards/card', {params: {id: cardId}})
+    },
+    updateCard(updateCard:UpdateCardType) {
+        return instance.put('/cards/card',{card:{...updateCard}})
+    },
 
 }
 
@@ -104,4 +122,42 @@ export type LoginParamsType = {
     email: string;
     password: string;
     rememberMe: boolean;
+}
+
+export type CardsParamsType = {
+    cardsPack_id: string|undefined
+    min?: number
+    max?: number
+    sortCards?: number
+    page?: number
+    pageCount?: number
+}
+
+export type NewCardsType = {
+    cardsPack_id: string
+    question: string
+    answer: string
+    grade?: number
+    shots?: number
+    rating?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+    type: string
+}
+
+export type UpdateCardType = {
+    _id: string
+    question?: string
+    answer?: string
+    grade?: number
+    shots?: number
+    rating?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+    type?: string
+    comments?: string
 }

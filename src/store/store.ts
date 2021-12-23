@@ -8,6 +8,7 @@ import {newPasswordReducer} from "../reducers/newPasswordReducer";
 import {appReducer} from "../reducers/appReducer";
 import {configureStore} from "@reduxjs/toolkit";
 import {packReducer} from "../reducers/packReducer";
+import {cardReducer} from "../reducers/cardReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -17,11 +18,12 @@ const rootReducer = combineReducers({
     restorePass: restorePassReducer,
     newPass: newPasswordReducer,
     pack: packReducer,
+    card: cardReducer,
 })
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware().prepend(thunkMiddleware)]
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

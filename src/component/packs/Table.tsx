@@ -5,6 +5,7 @@ import {useEffect} from "react";
 import {cardPacksType, getPack} from "../../reducers/packReducer";
 import {AppRootStateType} from "../../store/store";
 import Button from '@material-ui/core/Button';
+import {NavLink} from "react-router-dom";
 
 const columns: GridColDef[] = [
     // {field: 'id', headerName: 'ID', width: 70 },
@@ -26,28 +27,17 @@ const columns: GridColDef[] = [
         sortable: false,
         disableColumnMenu: true,
         renderCell: (params) => {
-            const onClick = (e: any) => {
-                e.stopPropagation(); // don't select this row after clicking
-                const api: GridApi = params.api;
-                const thisRow: Record<string, GridCellValue> = {};
-                api
-                    .getAllColumns()
-                    .filter((c) => c.field !== '__check__' && !!c)
-                    .forEach(
-                        (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                    );
-                return alert(JSON.stringify(thisRow, null, 4));
-            }
             const onClick2 = () => {
                 return alert('to be continued')
             }
             return <span>
-                <Button style={{color:'black', border: "1px black solid", marginRight:5}} variant='outlined' size='small' onClick={onClick}>Click</Button>
+                <NavLink to={'/cards/'+ params.id} style={{textDecoration:'none'}}><Button style={{color:'black', border: "1px black solid", marginRight:5}} variant='outlined' size='small'>Cards</Button></NavLink>
                 <Button style={{color:'black', border: "1px black solid"}} variant='outlined' size='small' onClick={onClick2} >Click2</Button>
             </span>
         },
     }
 ];
+
 export default function DataTable() {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -62,6 +52,7 @@ export default function DataTable() {
     let rows = packs.map((t) => {
         return createData(t._id, t.name, t.cardsCount, t.updated, 'add')
     })
+
 
     return (
         <div style={{height: 480, width: '100%'}}>
