@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from 'axios'
 import {ForgotType} from "../reducers/restoreReducer";
 import {ChangePasswordType} from "../reducers/newPasswordReducer";
-import {PostPackType, UpdatePackType} from "../reducers/packReducer";
+import {GetParamsType, PostPackType, UpdatePackType} from "../reducers/packReducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -36,17 +36,19 @@ export const profileAPI = {
 }
 
 export const packAPI = {
-    getPack(data?: any) {
-        return instance.get<GetPackType>(`/cards/pack?pageCount=${16}`, data)
+    getPack(config?: GetParamsType) {
+        return instance.get<GetPackType>(`/cards/pack/`, {params: config})
     },
-    postPack(data?: PostPackType) {
-        return instance.post(`cards/pack`, data = {cardsPack: {}})
+    postPack(data: PostPackType | void) {
+        let dataOptions = data === undefined ? {cardsPack: {data}} : data
+        return instance.post(`cards/pack`, dataOptions)
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack/?id=${id}`)
     },
     updatePack(data: UpdatePackType) {
-        return instance.put(`cards/pack`, data = {cardsPack:{_id:data.cardsPack._id,name:"updatePackName"}})
+        const {_id, name = "New Name"} = data.cardsPack
+        return instance.put(`cards/pack`, {cardsPack: {_id, name}})
     }
 
 }
@@ -91,11 +93,11 @@ export type ResponseType = {
     email: string;
     name: string;
     avatar?: string;
-    publicCardPacksCount: number; // количество колод
+    publicCardPacksCount: number;
     created: Date;
     updated: Date;
     isAdmin: boolean;
-    verified: boolean; // подтвердил ли почту
+    verified: boolean;
     rememberMe: boolean;
     error?: string;
 }
