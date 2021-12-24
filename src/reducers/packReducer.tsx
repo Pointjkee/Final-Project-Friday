@@ -1,8 +1,5 @@
-
-import {GetPackType, packAPI} from "../api/api";
-import {ThunkAction} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
-
+import {packAPI} from "../api/api";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     cardPacks: [
@@ -27,56 +24,45 @@ const initialState = {
     page: 0,
     pageCount: 0,
 }
-export type cardPacksType =
-    { _id: string; user_id: string; name: string; path: string; cardsCount: number; grade: number; shots: number; rating: number; type: string; created: string; updated: string; __v: number; }[]
 
 
+export const getPack = createAsyncThunk('pack/getPack', async (params?: GetParamsType) => {
+    const res = await packAPI.getPack(params)
+    return res.data
+})
+
+
+export const addPack = createAsyncThunk('pack/addPack', async (data: PostPackType | void, thunkAPI) => {
+    await packAPI.postPack(data)
+    thunkAPI.dispatch(getPack())
+})
+
+export const deletePack = createAsyncThunk('pack/deletePack', async (id:string, thunkAPI) => {
+   await packAPI.deletePack(id)
+        thunkAPI.dispatch(getPack())
+})
+
+export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, thunkAPI) => {
+    packAPI.updatePack(data).then(() => {
+        thunkAPI.dispatch(getPack())
+    })
+})
+
+export const slice = createSlice({
+    name: "task",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(getPack.fulfilled, (state, action) => {
+                return action.payload
+            })
+    }
+});
+
+export const packReducer = slice.reducer
 
 export type InitialStateTypeProfile = typeof initialState
-
-export const packReducer = (state: InitialStateTypeProfile = initialState, action: SetPackType): InitialStateTypeProfile => {
-    switch (action.type) {
-        case "PACK/SET-PACK": {
-            // debugger
-            return {...state, cardPacks: action.data.cardPacks}
-        }
-        default:
-            return state
-    }
-}
-
-type SetPackType = ReturnType<typeof setStatePack>
-export const setStatePack = (data: GetPackType) => ({type: "PACK/SET-PACK", data} as const)
-
-export const getPack = (): PackThunkType => (dispatch) => {
-    packAPI.getPack().then(res => {
-        dispatch(setStatePack(res.data))
-    })
-}
-
-export const addPack = (data?:PostPackType): PackThunkType => (dispatch) => {
-    packAPI.postPack(data).then(() => {
-        dispatch(getPack())
-    })
-
-}
-
-export const deletePack = (id: string): PackThunkType => (dispatch) => {
-    packAPI.deletePack(id).then(() => {
-        dispatch(getPack())
-    })
-}
-
-
-//  dispatch(updatePack({cardsPack:{_id:"61c2fd76b68c5b0004438b99"} })) вот так передавать в санку))
-export const updatePack = (data: UpdatePackType): PackThunkType => (dispatch) => {
-    packAPI.updatePack(data).then(()=> {
-        dispatch(getPack())
-    })
-}
-
-export type PackThunkType = ThunkAction<void, AppRootStateType, unknown, SetPackType>
-
 
 export type UpdatePackType = {
     cardsPack: {
@@ -96,4 +82,30 @@ export type PostPackType = {
         private?: boolean
         type?: string
     }
+}
+
+export type cardPacksType =
+    {
+        _id: string;
+        user_id: string;
+        name: string;
+        path: string;
+        cardsCount: number;
+        grade: number;
+        shots: number;
+        rating: number;
+        type: string;
+        created: string;
+        updated: string;
+        __v: number;
+    }[]
+
+export type GetParamsType = {
+    packName?: string
+    min?: number
+    max?: number
+    sortPacks?: number
+    page?: number
+    pageCount?: number
+    user_id?: string
 }
