@@ -38,7 +38,7 @@ export const profileAPI = {
 
 export const packAPI = {
     getPack(config?: GetParamsType) {
-        return instance.get<GetPackType>(`/cards/pack/`, {params: config})
+        return instance.get<GetPackType>(`/cards/pack?pageCount=${16}`, {params: config})
     },
     postPack(data: PostPackType | void) {
         let dataOptions = data === undefined ? {cardsPack: {data}} : data
