@@ -37,6 +37,8 @@ export const Login = () => {
     if (isLoggedIn) {
         return <Navigate to='/profile'/>
     }
+
+
     return (
         <>
             <form className={s.form} onSubmit={formik.handleSubmit}>
@@ -63,7 +65,7 @@ export const Login = () => {
                                               {...formik.getFieldProps('rememberMe')}
                                               checked={formik.values.rememberMe}/>}/>
                         <div className={s.buttonBlock}>
-                            <Button type={'submit'} variant="contained">Login</Button>
+                            <Button type={'submit'} variant="contained" disabled={!formik.isValid}>Login</Button>
                             <Button variant="contained" href={'#/restore'}>Forgot?</Button>
                             <Button variant="contained" href={'#/register'}>Register</Button>
                         </div>

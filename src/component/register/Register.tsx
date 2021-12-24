@@ -48,7 +48,7 @@ export const Register = React.memo(() => {
         <div className={styles.main}>
             <Container
                 className={styles.container}
-                sx={{width: 400, paddingBottom: 5, marginTop:3}}
+                sx={{width: 400, paddingBottom: 5, marginTop: 3}}
             >
                 <h1>It-incubator</h1>
                 <h3>Sign Up</h3>
@@ -124,6 +124,7 @@ export const Register = React.memo(() => {
                         onClick={onChange}
                         variant="contained"
                         style={{marginRight: 50}}
+                        disabled={!email || !password1 || !password2}
                     >Register</Button>
                     <Link to="/login" style={{textDecoration: 'none'}}>
                         <Button size='medium' variant="outlined">Cancel</Button>
