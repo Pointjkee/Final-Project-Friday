@@ -3,21 +3,31 @@ import {Dispatch} from "redux";
 import {setProfile} from "./profileReducer";
 import {setAppStatus} from "./appReducer";
 
+type ActionsType = setIsLoggedInAT | errorTextResponseAT
+
 type setIsLoggedInAT = {
     type: 'LOGIN',
     value: boolean
 }
-type ActionsType = setIsLoggedInAT
+type errorTextResponseAT = {
+    type: 'ERROR_TEXT_RESPONSE',
+    errorText: string
+}
+
+type InitialStateType = typeof initialState
 
 const initialState = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    errorText: ''
 }
-type InitialStateType = typeof initialState
+
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'LOGIN':
             return {...state, isLoggedIn: action.value}
+        case 'ERROR_TEXT_RESPONSE':
+            return {...state, errorText: action.errorText}
         default:
             return state
     }
@@ -25,21 +35,24 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 
 export const setIsLoggedInAC = (value: boolean): setIsLoggedInAT => ({type: 'LOGIN', value} as const)
+export const errorTextResp = (errorText: string) => ({type: 'ERROR_TEXT_RESPONSE', errorText} as const)
 
 export const loginThunk = (data: LoginParamsType) => {
     return (dispatch: Dispatch) => {
+        dispatch(setAppStatus('loading'))
         userAPI.login(data)
             .then((res) => {
-                if (res.status === 200) {
-                    dispatch(setProfile(res.data))
-                    dispatch(setIsLoggedInAC(true))
-                }
+                dispatch(setProfile(res.data))
+                dispatch(setIsLoggedInAC(true))
             })
             .catch(e => {
                     const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
-                    console.log(error)
+                    dispatch(errorTextResp(error))
                 }
             )
+            .finally(() => {
+                dispatch(setAppStatus('success'))
+            })
     }
 }
 
@@ -47,29 +60,28 @@ export const loginThunk = (data: LoginParamsType) => {
 export const logOut = () => (dispatch: Dispatch) => {
     dispatch(setAppStatus('loading'))
     userAPI.logOut()
-        .then(res=>{
+        .then(() => {
             dispatch(setProfile({
-                _id: null,
-                email: null,
-                name: '',
-                avatar: null,
-                publicCardPacksCount: null,
-                created: null,
-                updated: null,
-                isAdmin: null,
-                verified: null,
-                rememberMe: null,
-                error: null})
+                    _id: null,
+                    email: null,
+                    name: '',
+                    avatar: null,
+                    publicCardPacksCount: null,
+                    created: null,
+                    updated: null,
+                    isAdmin: null,
+                    verified: null,
+                    rememberMe: null,
+                    error: null
+                })
             )
             dispatch(setAppStatus('success'))
             dispatch(setIsLoggedInAC(false))
         })
         .catch(e => {
-            const error = e.response ? e.response.data.error
-                : (e.message + ', more details in the console');
-            console.log(error)
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
+            dispatch(errorTextResp(error))
         })
-
 
 
 }
@@ -84,7 +96,7 @@ export const authMe = () => (dispatch: Dispatch) => {
         })
         .catch(e => {
             const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
-            console.log(error)
+            dispatch(errorTextResp(error))
             dispatch(setAppStatus('failed'))
         })
 }

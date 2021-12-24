@@ -2,7 +2,8 @@
 export type RequestStatusType = 'loading' | 'success' | 'failed'
 
 export const initialState = {
-    status: 'loading' as RequestStatusType
+    status: 'loading' as RequestStatusType,
+
 }
 
 type InitialStateType = typeof initialState;

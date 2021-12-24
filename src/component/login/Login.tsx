@@ -1,11 +1,12 @@
 import React from 'react'
-import SuperButton from "../../common/superButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {loginThunk} from "../../reducers/authReducer";
 import {AppRootStateType} from "../../store/store";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {useFormik} from "formik";
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField} from "@material-ui/core";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from "@material-ui/core";
+import s from './Login.module.css'
+import Button from "@mui/material/Button";
 
 
 export const Login = () => {
@@ -24,8 +25,8 @@ export const Login = () => {
                 }
             },
             initialValues: {
-                email: '',
-                password: '',
+                email: 'nya-admin@nya.nya',
+                password: '1qazxcvBG',
                 rememberMe: false
             },
             onSubmit: values => {
@@ -36,30 +37,39 @@ export const Login = () => {
     if (isLoggedIn) {
         return <Navigate to='/profile'/>
     }
+
+
     return (
         <>
-            <form onSubmit={formik.handleSubmit}>
+            <form className={s.form} onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <FormLabel>Login</FormLabel>
+                    <h1>IT-Incubator</h1>
+                    <h2>Sign In</h2>
                     <FormGroup>
-                        <TextField label='Email' type='email' {...formik.getFieldProps('email')}/>
-                        {formik.errors.email ? <div>{formik.errors.email}</div> : null}
-                        <TextField label='Password' type='password' {...formik.getFieldProps('password')}/>
-                        {formik.errors.password ? <div>{formik.errors.password}</div> : null}
+                        <TextField
+                            label='Email'
+                            type='email'
+                            margin='normal'
+                            variant='standard'
+                            {...formik.getFieldProps('email')}/>
+                        {formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                        <TextField
+                            label='Password'
+                            type='password'
+                            margin='normal'
+                            variant='standard'
+                            {...formik.getFieldProps('password')}/>
+                        {formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                         <FormControlLabel label='Remember me'
                                           control={<Checkbox
                                               {...formik.getFieldProps('rememberMe')}
                                               checked={formik.values.rememberMe}/>}/>
-                        <div>
-                            <NavLink to='/restore'>Forgot?</NavLink>
-                        </div>
-                        <div>
-                            <SuperButton type='submit'>sign in</SuperButton>
+                        <div className={s.buttonBlock}>
+                            <Button type={'submit'} variant="contained" disabled={!formik.isValid}>Login</Button>
+                            <Button variant="contained" href={'#/restore'}>Forgot?</Button>
+                            <Button variant="contained" href={'#/register'}>Register</Button>
                         </div>
                     </FormGroup>
-                    <div>
-                        <NavLink to='/register'>Register</NavLink>
-                    </div>
                 </FormControl>
             </form>
         </>
