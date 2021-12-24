@@ -1,6 +1,4 @@
 import {packAPI} from "../api/api";
-import {ThunkAction} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
@@ -30,7 +28,6 @@ const initialState = {
 
 export const getPack = createAsyncThunk('pack/getPack', async (params?: GetParamsType) => {
     const res = await packAPI.getPack(params)
-    console.log(res.data.cardPacks)
     return res.data
 })
 
@@ -40,6 +37,16 @@ export const addPack = createAsyncThunk('pack/addPack', async (data: PostPackTyp
     thunkAPI.dispatch(getPack())
 })
 
+export const deletePack = createAsyncThunk('pack/deletePack', async (id:string, thunkAPI) => {
+   await packAPI.deletePack(id)
+        thunkAPI.dispatch(getPack())
+})
+
+export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, thunkAPI) => {
+    packAPI.updatePack(data).then(() => {
+        thunkAPI.dispatch(getPack())
+    })
+})
 
 export const slice = createSlice({
     name: "task",
@@ -55,24 +62,7 @@ export const slice = createSlice({
 
 export const packReducer = slice.reducer
 
-
-export const deletePack = (id: string): PackThunkType => (dispatch) => {
-    packAPI.deletePack(id).then(() => {
-        dispatch(getPack())
-    })
-}
-
-
-export const updatePack = (data: UpdatePackType): PackThunkType => (dispatch) => {
-    packAPI.updatePack(data).then(() => {
-        dispatch(getPack())
-    })
-}
-
-
 export type InitialStateTypeProfile = typeof initialState
-
-export type PackThunkType = ThunkAction<void, AppRootStateType, unknown, any>
 
 export type UpdatePackType = {
     cardsPack: {
