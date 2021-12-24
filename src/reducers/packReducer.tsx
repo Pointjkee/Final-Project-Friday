@@ -26,6 +26,8 @@ const initialState = {
 }
 
 
+//Ошибки обработаю позже
+
 export const getPack = createAsyncThunk('pack/getPack', async (params?: GetParamsType) => {
     const res = await packAPI.getPack(params)
     return res.data
@@ -37,7 +39,7 @@ export const addPack = createAsyncThunk('pack/addPack', async (data: PostPackTyp
     thunkAPI.dispatch(getPack())
 })
 
-export const deletePack = createAsyncThunk('pack/deletePack', async (id:string, thunkAPI) => {
+export const deletePAck = createAsyncThunk('pack/deletePack', async (id:string, thunkAPI) => {
    await packAPI.deletePack(id)
         thunkAPI.dispatch(getPack())
 })

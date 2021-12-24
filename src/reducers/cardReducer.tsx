@@ -74,6 +74,7 @@ export const getCards = (id: string | undefined) => (dispatch: Dispatch, getStat
         .then(res => {
             if(res.data.cards.length !== 0)
                 dispatch(setCard(res.data))
+            dispatch(statusCard({status:'success'}))
         })
         .catch(error => {
             console.log(error)

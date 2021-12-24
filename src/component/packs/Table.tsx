@@ -2,7 +2,7 @@ import * as React from 'react';
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 import {useDispatch, useSelector} from "react-redux";
 import {ChangeEvent, useEffect, useState} from "react";
-import {cardPacksType, deletePack, getPack} from "../../reducers/packReducer";
+import {cardPacksType, getPack} from "../../reducers/packReducer";
 import {AppRootStateType} from "../../store/store";
 import Button from '@material-ui/core/Button';
 import {NavLink} from "react-router-dom";
