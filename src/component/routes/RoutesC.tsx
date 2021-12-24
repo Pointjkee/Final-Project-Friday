@@ -16,7 +16,7 @@ const RoutesC = () => {
     return (
         <div>
             <Routes>
-                <Route path='/' element={<div>default</div>}/>
+                <Route path='/' element={<Profile/>}/>
                 <Route path='login' element={<div><Login/></div>}/>
                 <Route path="register" element={<Register/>}/>
                 <Route path="profile" element={<Profile/>}/>

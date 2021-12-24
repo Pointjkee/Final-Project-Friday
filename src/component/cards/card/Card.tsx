@@ -1,5 +1,6 @@
 import React from 'react';
 import {CardType} from "../../../reducers/cardReducer";
+import {Button} from "@material-ui/core";
 
 
 type PropsCardType = {
