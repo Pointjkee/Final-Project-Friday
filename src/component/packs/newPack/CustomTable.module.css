@@ -1,0 +1,46 @@
+.ContainerTable {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto 30px auto;
+    width: 80%;
+    min-height: 80vh;
+    border-radius: 8px;
+    padding: 20px 0;
+}
+
+.interface {
+    display: flex;
+    justify-content: start;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+.tableHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ECECF9;
+    height: 60px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F8F7FD;
+    height: 60px;
+    text-align: center;
+
+}
+
+.content{
+    margin: 0 auto;
+    width: 90%;
+}
+
+.textHeader {
+    width: 100%;
+}

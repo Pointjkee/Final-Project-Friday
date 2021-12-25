@@ -44,6 +44,7 @@ const columns: GridColDef[] = [
 
 export default function DataTable() {
     const [value, setValue] = useState("")
+    // const pageCount = useSelector<AppRootStateType, number>(s=>s.pack.maxCardsCount)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getPack())

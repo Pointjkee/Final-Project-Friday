@@ -14,7 +14,7 @@ import {CardsTable} from "../cards/CardsTable";
 
 const RoutesC = () => {
     return (
-        <div>
+        <div style={{marginTop:"50px"}}>
             <Routes>
                 <Route path='/' element={<Profile/>}/>
                 <Route path='login' element={<div><Login/></div>}/>
@@ -24,6 +24,7 @@ const RoutesC = () => {
                 <Route path="/set-new-password/:token" element={<NewPassword/>}/>
                 <Route path="info-sent-email" element={<InfoSentEmail/>}/>
                 <Route path="test" element={<Test/>}/>
+                <Route path="packs" element={<Packs/>}/>
                 <Route path="packs" element={<Packs/>}/>
                 <Route path="cards/:id" element={<CardsTable/>}/>
                 <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>

@@ -2,22 +2,7 @@ import {packAPI} from "../api/api";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    cardPacks: [
-        {
-            _id: '',
-            user_id: '',
-            name: '',
-            path: '',
-            cardsCount: 0,
-            grade: 0,
-            shots: 0,
-            rating: 0,
-            type: '',
-            created: '',
-            updated: '',
-            __v: 0,
-        },
-    ],
+    cardPacks: [] as cardPacksType,
     cardPacksTotalCount: 0,
     maxCardsCount: 0,
     minCardsCount: 0,
@@ -26,27 +11,25 @@ const initialState = {
 }
 
 
-//Ошибки обработаю позже
-
-export const getPack = createAsyncThunk('pack/getPack', async (params?: GetParamsType) => {
+export const getPack = createAsyncThunk('pack/getPack', async (params: GetParamsType|void, {dispatch}) => {
     const res = await packAPI.getPack(params)
     return res.data
 })
 
 
-export const addPack = createAsyncThunk('pack/addPack', async (data: PostPackType | void, thunkAPI) => {
+export const addPack = createAsyncThunk('pack/addPack', async (data: PostPackType | void, {dispatch}) => {
     await packAPI.postPack(data)
-    thunkAPI.dispatch(getPack())
+    dispatch(getPack())
 })
 
-export const deletePAck = createAsyncThunk('pack/deletePack', async (id:string, thunkAPI) => {
+export const deletePAck = createAsyncThunk('pack/deletePack', async (id:string, {dispatch}) => {
    await packAPI.deletePack(id)
-        thunkAPI.dispatch(getPack())
+        dispatch(getPack())
 })
 
-export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, thunkAPI) => {
+export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, {dispatch}) => {
     packAPI.updatePack(data).then(() => {
-        thunkAPI.dispatch(getPack())
+        dispatch(getPack())
     })
 })
 

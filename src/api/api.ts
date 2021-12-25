@@ -1,7 +1,9 @@
 import axios, {AxiosResponse} from 'axios'
 import {ForgotType} from "../reducers/restoreReducer";
-import {ChangePasswordType} from "../reducers/newPasswordReducer";
 import {GetParamsType, PostPackType, UpdatePackType} from "../reducers/packReducer";
+import {AuthResponseType, CardsParamsType, GetPackType, LoginParamsType, NewCardsType, ResponseType, SetProfileType, UpdateCardType} from "./types";
+import {ChangePasswordType} from "../reducers/newPasswordReducer";
+
 
 
 const instance = axios.create({
@@ -37,8 +39,8 @@ export const profileAPI = {
 }
 
 export const packAPI = {
-    getPack(config?: GetParamsType) {
-        return instance.get<GetPackType>(`/cards/pack?pageCount=${16}`, {params: config})
+    getPack(config: GetParamsType|void) {
+        return instance.get<GetPackType>(`/cards/pack?pageCount=${100}`, {params: config})
     },
     postPack(data: PostPackType | void) {
         let dataOptions = data === undefined ? {cardsPack: {data}} : data
@@ -69,97 +71,4 @@ export const cardsAPI = {
         return instance.put('/cards/card',{card:{...updateCard}})
     },
 
-}
-
-export type GetPackType = {
-    cardPacks: [
-        {
-            _id: string
-            user_id: string
-            name: string
-            path: string
-            cardsCount: number
-            grade: number
-            shots: number
-            rating: number
-            type: string
-            created: string
-            updated: string
-            __v: number
-        },
-    ]
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-
-}
-
-export type SetProfileType = {
-    name: string
-    avatar: string | null
-}
-
-type AuthResponseType = {
-    info: string
-    error: string
-}
-
-export type ResponseType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number;
-    created: Date;
-    updated: Date;
-    isAdmin: boolean;
-    verified: boolean;
-    rememberMe: boolean;
-    error?: string;
-}
-
-export type LoginParamsType = {
-    email: string;
-    password: string;
-    rememberMe: boolean;
-}
-
-export type CardsParamsType = {
-    cardsPack_id: string|undefined
-    min?: number
-    max?: number
-    sortCards?: number
-    page?: number
-    pageCount?: number
-}
-
-export type NewCardsType = {
-    cardsPack_id: string
-    question: string
-    answer: string
-    grade?: number
-    shots?: number
-    rating?: number
-    answerImg?: string
-    questionImg?: string
-    questionVideo?: string
-    answerVideo?: string
-    type: string
-}
-
-export type UpdateCardType = {
-    _id: string
-    question?: string
-    answer?: string
-    grade?: number
-    shots?: number
-    rating?: number
-    answerImg?: string
-    questionImg?: string
-    questionVideo?: string
-    answerVideo?: string
-    type?: string
-    comments?: string
 }

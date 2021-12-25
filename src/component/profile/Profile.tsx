@@ -10,9 +10,10 @@ import {Navigate} from "react-router-dom";
 import {logOut} from "../../reducers/authReducer";
 import {RequestStatusType} from "../../reducers/appReducer";
 import {Preloader} from "../../common/preloader/Preloader";
+import {Paper} from "@material-ui/core";
 
 const Profile = () => {
-    const status = useSelector<AppRootStateType, RequestStatusType>(state=> state.app.status)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const profile = useSelector<AppRootStateType, InitialStateTypeProfile>(state => state.profile);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
@@ -26,20 +27,21 @@ const Profile = () => {
 
     const [editMode, setEditMode] = useState(false)
 
-    const {register, handleSubmit} = useForm({defaultValues:{
-            name:name,
-            avatar:avatar
-        }})
+    const {register, handleSubmit} = useForm({
+        defaultValues: {
+            name: name,
+            avatar: avatar
+        }
+    })
     const onSubmit = handleSubmit(data => {
         console.log(data)
-        dispatch(editProfile(data))});
+        dispatch(editProfile(data))
+    });
 
     const activateEditMode = () => setEditMode(true)
     const deactivateEditMode = () => {
         setEditMode(false)
     }
-
-
 
 
     const onLogOutClick = () => {
@@ -51,39 +53,41 @@ const Profile = () => {
     }
 
     return (
-        <div className={s.container}>
-            <div className={s.photo}>
-                <span>Personal Information</span>
-                <img
-                    src={avatar ? avatar : nonAvatarPic}
-                    alt="photo"/>
-            </div>
-            {status === 'loading' && <Preloader/>}
-            <div>
-                <Button onClick={onLogOutClick} variant="contained">Log out</Button>
-            </div>
-            {!editMode && <div className={s.info}>
-                <span>NickName</span>
-                <div onDoubleClick={activateEditMode}>{name}</div>
-                <span>Email</span>
-                <div onDoubleClick={activateEditMode}>{email}</div>
-            </div>}
-
-            {editMode && <form className={s.form} onSubmit={onSubmit}>
-                <div className={s.info_form}>
+        <div className={s.wrapper}>
+            <Paper className={s.container}>
+                <div className={s.photo}>
+                    <h2>Personal Information</h2>
+                    <img
+                        src={avatar ? avatar : nonAvatarPic}
+                        alt="photo"/>
+                </div>
+                {status === 'loading' && <Preloader/>}
+                <div>
+                    <Button onClick={onLogOutClick} variant={"outlined"}>Log out</Button>
+                </div>
+                {!editMode && <div className={s.info}>
                     <span>NickName</span>
-                    <Input {...register('name')}/>
-                    <span>Image Url</span>
-                    <Input {...register('avatar')}/>
-                </div>
-                <div className={s.button}>
-                    <Button onClick={deactivateEditMode} variant="contained" color="secondary">Cancel</Button>
-                    <Button variant="contained" color="primary" type="submit">Save</Button>
-                </div>
-            </form>
-            }
+                    <div className={s.profileData} onDoubleClick={activateEditMode}>{name}</div>
+                    <span>Email</span>
+                    <div className={s.profileData} onDoubleClick={activateEditMode}>{email}</div>
+                </div>}
+
+                {editMode && <form className={s.form} onSubmit={onSubmit}>
+                    <div className={s.info_form}>
+                        <span>NickName</span>
+                        <Input {...register('name')}/>
+                        <span>Image Url</span>
+                        <Input {...register('avatar')}/>
+                    </div>
+                    <div className={s.button}>
+                        <Button onClick={deactivateEditMode} variant="contained" color="secondary">Cancel</Button>
+                        <Button variant="contained" color="primary" type="submit">Save</Button>
+                    </div>
+                </form>
+                }
 
 
+            </Paper>
         </div>
     );
 };
