@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
-import {profileAPI, SetProfileType} from "../api/api";
+import {profileAPI} from "../api/api";
 import {setAppStatus} from "./appReducer";
 import {setIsLoggedInAC} from "./authReducer";
+import {SetProfileType} from "../api/types";
 
 
 export type ActionTypes = ReturnType<typeof setProfile>

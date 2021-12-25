@@ -10,7 +10,7 @@ const Header = () => {
             <NavLink to='/register'> Register</NavLink>
             <NavLink to='/profile'> Profile</NavLink>
             <ErrorAlert/>
-            <NavLink to='/restore'> Restore password</NavLink>
+            {/*<NavLink to='/restore'> Restore password</NavLink>*/}
             <NavLink to='/test'> Test</NavLink>
             <NavLink to='/packs'> Packs</NavLink>
             <NavLink to='/404'> 404</NavLink>

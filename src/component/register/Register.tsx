@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
-import styles from './Register.module.css'
+import styles from '../../style/styleForm.module.css'
 import {registerThunk} from "../../reducers/registerReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
@@ -7,6 +7,8 @@ import {Link, Navigate} from "react-router-dom";
 import {Container, IconButton, InputAdornment, TextField} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Button from "@mui/material/Button";
+import {Paper} from "@material-ui/core";
+import s from "../../style/styleForm.module.css";
 
 export const Register = React.memo(() => {
     const [email, setEmail] = useState<string>('')
@@ -45,31 +47,28 @@ export const Register = React.memo(() => {
         setPass2(!pass2)
     }
     return (
-        <div className={styles.main}>
-            <Container
-                className={styles.container}
-                sx={{width: 400, paddingBottom: 5, marginTop: 3}}
-            >
-                <h1>It-incubator</h1>
+        <div className={styles.form}>
+            <Paper className={s.stylePaper}>
+                <h1>IT-Incubator</h1>
                 <h3>Sign Up</h3>
                 <div>
                     <TextField
+                        className={s.textField}
                         id="outlined-name"
                         label="Email"
                         value={email}
                         onChange={onChangeEmail}
-                        sx={{width: 300}}
-                        size='small'
+                        variant={'standard'}
                     />
                 </div>
                 <div style={{marginTop: 20}}>
                     <TextField
+                        className={s.textField}
                         type={pass1 ? 'text' : 'password'}
                         label='Password'
-                        size='small'
-                        sx={{width: 300}}
                         value={password1}
                         onChange={onChangePassword1}
+                        variant={'standard'}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -88,12 +87,12 @@ export const Register = React.memo(() => {
                 <div>
                     <div style={{marginTop: 20}}>
                         <TextField
+                            className={s.textField}
                             type={pass2 ? 'text' : 'password'}
                             label='Confirm Password'
-                            size='small'
-                            sx={{width: 300}}
                             value={password2}
                             onChange={onChangePassword2}
+                            variant={'standard'}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -110,27 +109,28 @@ export const Register = React.memo(() => {
                         />
                     </div>
                 </div>
-                {errorPassword
-                &&
-                <div style={{color: 'red'}}> Incorrect passwords!</div>
-                ||
-                !!errorRegister
-                &&
-                <div style={{color: 'red'}}>{errorRegister}</div>
-                }
-                <div style={{marginTop: 30}}>
+                <div style={{height:"20px"}}>{errorPassword
+                    &&
+                    <div style={{color: 'red'}}> Incorrect passwords!</div>
+                    ||
+                    !!errorRegister
+                    &&
+                    <div style={{color: 'red'}}>{errorRegister}</div> }
+                </div>
+
+                <div style={{marginTop: "15px"}}>
+                    <Link to="/login" style={{textDecoration: 'none', marginRight: 50}}>
+                        <Button size='medium' variant="outlined">Cancel</Button>
+                    </Link>
                     <Button
                         size='medium'
                         onClick={onChange}
                         variant="contained"
-                        style={{marginRight: 50}}
                         disabled={!email || !password1 || !password2}
                     >Register</Button>
-                    <Link to="/login" style={{textDecoration: 'none'}}>
-                        <Button size='medium' variant="outlined">Cancel</Button>
-                    </Link>
+
                 </div>
-            </Container>
+            </Paper>
         </div>
     )
 })
