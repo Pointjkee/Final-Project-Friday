@@ -5,7 +5,6 @@ import {AuthResponseType, CardsParamsType, GetPackType, LoginParamsType, NewCard
 import {ChangePasswordType} from "../reducers/newPasswordReducer";
 
 
-
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
