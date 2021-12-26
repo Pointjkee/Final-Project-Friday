@@ -1,34 +1,38 @@
 import * as React from 'react';
 import {MenuItem, Pagination, Select, SelectChangeEvent} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {getPack, setCurrentPage, setPageCount} from "../../../../reducers/packReducer";
-import {AppRootStateType} from "../../../../store/store";
+import {getPack, setCurrentPage, setPageCount} from "../../../../../reducers/packReducer";
+import {AppRootStateType} from "../../../../../store/store";
+
+type PropsType = {
+    text: string
+}
 
 
-
-export const PaginationComponent = () => {
+export const PaginationComponent = ({text}:PropsType) => {
     const dispatch = useDispatch()
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(s => s.pack.cardPacksTotalCount)
-    const page = useSelector<AppRootStateType, number>(s => s.pack.page)
     const pageCount = useSelector<AppRootStateType, number>(s=>s.pack.pageCount)
+    const page = useSelector<AppRootStateType, number>(s => s.pack.page)
 
-    const onPageChanged = (pageNumber: number) => {
-        dispatch(getPack({page: pageNumber, pageCount: pageCount}))
+    const onClickPageItem = (pageNumber: number) => {
+        dispatch(getPack({page: pageNumber, pageCount: pageCount, packName:text}))
         dispatch(setCurrentPage({page: pageNumber}))
     }
 
     const changePage = (event: SelectChangeEvent<string>) => {
         dispatch(setPageCount({pageSize: +event.target.value}))
+        dispatch(getPack({pageCount: +event.target.value, page,packName:text}))
     }
 
     let pagesCount = Math.ceil(cardPacksTotalCount / pageCount)
 
     return (
         <div>
-            <div style={{margin: "15px auto 0 auto", width: "90%", display: "flex", alignItems: "center"}}>
+            <div style={{margin: "15px 0", width: "90%", display: "flex", alignItems: "start"}}>
 
                 <Pagination onChange={(event, page) => {
-                    onPageChanged(page)
+                    onClickPageItem(page)
                 }}
                             color={"primary"} count={pagesCount} shape="rounded"
                 />

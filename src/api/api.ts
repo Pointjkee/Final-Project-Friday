@@ -41,7 +41,7 @@ export const packAPI = {
     getPack(config: GetParamsType|void) {
         return instance.get<GetPackType>(`/cards/pack?`, {params: config})
     },
-    postPack(data: PostPackType | void) {
+    postPack(data?: PostPackType) {
         let dataOptions = data === undefined ? {cardsPack: {data}} : data
         return instance.post(`cards/pack`, dataOptions)
     },

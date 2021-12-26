@@ -1,8 +1,9 @@
 import {packAPI} from "../api/api";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppRootStateType} from "../store/store";
 
 const initialState = {
-    cardPacks:[ {
+    cardPacks: [{
         _id: "",
         user_id: "",
         name: "",
@@ -15,6 +16,7 @@ const initialState = {
         created: "",
         updated: "",
         __v: 0,
+        user_name: "",
     }],
     cardPacksTotalCount: 0,
     maxCardsCount: 0,
@@ -24,21 +26,25 @@ const initialState = {
 }
 
 
-export const getPack = createAsyncThunk('pack/getPack', async (params: GetParamsType|void, {dispatch}) => {
+export const getPack = createAsyncThunk('pack/getPack', async (params: GetParamsType | void, {dispatch}) => {
     const res = await packAPI.getPack(params)
     return res.data
 })
 
 
-export const addPack = createAsyncThunk('pack/addPack', async (data: PostPackType | void, {dispatch}) => {
-    await packAPI.postPack(data)
-    dispatch(getPack())
-})
+export const addPack = createAsyncThunk('pack/addPack',
+    async (param: { data?: PostPackType, packName: string }, {dispatch, getState}) => {
+        const value = getState() as AppRootStateType
+        await packAPI.postPack(param.data)
+        dispatch(getPack({packName: param.packName, pageCount: value.pack.pageCount, page: value.pack.page}))
+    })
 
-export const deletePAck = createAsyncThunk('pack/deletePack', async (id:string, {dispatch}) => {
-   await packAPI.deletePack(id)
-        dispatch(getPack())
-})
+export const deletePack = createAsyncThunk('pack/deletePack',
+    async (param: { id: string, packName: string}, {dispatch, getState}) => {
+        const value = getState() as AppRootStateType
+        await packAPI.deletePack(param.id)
+        dispatch(getPack({packName: param.packName, pageCount: value.pack.pageCount, page: value.pack.page}))
+    })
 
 export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, {dispatch}) => {
     packAPI.updatePack(data).then(() => {
@@ -50,10 +56,10 @@ export const slice = createSlice({
     name: "task",
     initialState,
     reducers: {
-        setPageCount: (state,action:PayloadAction<{pageSize:number}>) => {
+        setPageCount: (state, action: PayloadAction<{ pageSize: number }>) => {
             state.pageCount = action.payload.pageSize
         },
-        setCurrentPage: (state,action:PayloadAction<{page:number}>) => {
+        setCurrentPage: (state, action: PayloadAction<{ page: number }>) => {
             state.page = action.payload.page
         }
     },
@@ -105,6 +111,7 @@ export type cardPacksType =
         created: string;
         updated: string;
         __v: number;
+        user_name: string;
     }[]
 
 export type GetParamsType = {
@@ -115,4 +122,5 @@ export type GetParamsType = {
     page?: number
     pageCount?: number
     user_id?: string
+    user_name?: string
 }

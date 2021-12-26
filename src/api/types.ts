@@ -13,6 +13,7 @@ export type GetPackType = {
             created: string
             updated: string
             __v: number
+            user_name: string
         },
     ]
     cardPacksTotalCount: number
@@ -20,7 +21,6 @@ export type GetPackType = {
     minCardsCount: number
     page: number
     pageCount: number
-
 }
 
 export type SetProfileType = {

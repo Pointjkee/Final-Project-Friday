@@ -1,0 +1,12 @@
+.interfaceWrapper {
+    display: flex;
+    justify-content: start;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+.tools{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
