@@ -1,9 +1,9 @@
 import * as React from 'react';
 import style from './Tabble.module.css'
 import {Button} from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
-import {deletePack, getPack} from "../../../../../reducers/packReducer";
-import {AppRootStateType} from "../../../../../store/store";
+import {useDispatch} from "react-redux";
+import {deletePack} from "../../../../../reducers/packReducer";
+
 
 type RowPropsType = {
     name: string

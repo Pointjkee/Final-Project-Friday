@@ -8,6 +8,7 @@ import {addPack, getPack} from "../../../../../reducers/packReducer";
 import {AppRootStateType} from "../../../../../store/store";
 import {CustomTable} from "../table/CustomTable";
 import {PaginationComponent} from "../Pagination/PaginationComponent";
+import {Refresh} from "@material-ui/icons";
 
 export const InterfacePack = () => {
     const [value, setValue] = useState("")
@@ -24,6 +25,11 @@ export const InterfacePack = () => {
         dispatch(getPack({packName:value,pageCount: pageSize, page}))
     }
 
+    const resetText = () =>{
+        setValue("")
+        dispatch(getPack({pageCount: pageSize, page}))
+    }
+
     const keySearch = (e: React.KeyboardEvent) => {
         if (e.code == 'Enter') {
             searchPack();
@@ -34,6 +40,10 @@ export const InterfacePack = () => {
        dispatch(addPack({packName: value}))
     }
 
+    // const clickSortCard=()=> {
+    //     dispatch(getPack({pageCount: pageSize, page, sortPacks:"updated"}))
+    // }
+
 
     return (
         <div>
@@ -43,11 +53,15 @@ export const InterfacePack = () => {
                     <Paper sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 300}}>
                     <InputBase sx={{ml: 1, flex: 1}} placeholder="Search" value={value} onChange={changeTextFieldValue} onKeyPress={keySearch}/>
                     <IconButton sx={{p: '5px'}} onClick={searchPack}>
-                        <SearchIcon/>
+                        <SearchIcon color={"primary"}/>
+                    </IconButton>
+                        <IconButton sx={{p: '5px'}} onClick={resetText} color={"success"} disabled={value === ""}>
+                        <Refresh/>
                     </IconButton>
                 </Paper>
-
                     <Button variant={"contained"} onClick={clickAddPack}>Add Task</Button>
+
+                    {/*<Button variant={"outlined"} onClick={clickSortCard}>sort</Button>*/}
                 </div>
 
             </div>

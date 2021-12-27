@@ -71,7 +71,7 @@ export const slice = createSlice({
     }
 });
 
-export const {setPageCount, setCurrentPage} = slice.actions
+export const {setPageCount,setCurrentPage} = slice.actions
 
 export const packReducer = slice.reducer
 
@@ -118,7 +118,7 @@ export type GetParamsType = {
     packName?: string
     min?: number
     max?: number
-    sortPacks?: number
+    sortPacks?: number| string
     page?: number
     pageCount?: number
     user_id?: string

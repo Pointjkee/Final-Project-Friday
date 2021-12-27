@@ -1,8 +1,8 @@
-import {userAPI} from "../api/api";
+import {LoginParamsType, userAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {setProfile} from "./profileReducer";
 import {setAppStatus} from "./appReducer";
-import {LoginParamsType} from "../api/types";
+
 
 type ActionsType = setIsLoggedInAT | errorTextResponseAT
 

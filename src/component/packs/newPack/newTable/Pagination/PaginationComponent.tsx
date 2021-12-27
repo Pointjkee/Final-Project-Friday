@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {MenuItem, Pagination, Select, SelectChangeEvent} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {getPack, setCurrentPage, setPageCount} from "../../../../../reducers/packReducer";
+import {getPack, setPageCount} from "../../../../../reducers/packReducer";
 import {AppRootStateType} from "../../../../../store/store";
 
 type PropsType = {
@@ -16,13 +16,17 @@ export const PaginationComponent = ({text}:PropsType) => {
     const page = useSelector<AppRootStateType, number>(s => s.pack.page)
 
     const onClickPageItem = (pageNumber: number) => {
-        dispatch(getPack({page: pageNumber, pageCount: pageCount, packName:text}))
-        dispatch(setCurrentPage({page: pageNumber}))
+        if(pageNumber !== page){
+            dispatch(getPack({page: pageNumber, pageCount: pageCount, packName:text}))
+        }
     }
 
-    const changePage = (event: SelectChangeEvent<string>) => {
-        dispatch(setPageCount({pageSize: +event.target.value}))
-        dispatch(getPack({pageCount: +event.target.value, page,packName:text}))
+    const changePageCount = (event: SelectChangeEvent<string>) => {
+        if(+event.target.value !== pageCount){
+            dispatch(setPageCount({pageSize: +event.target.value}))
+            dispatch(getPack({pageCount: +event.target.value, page, packName:text}))
+        }
+
     }
 
     let pagesCount = Math.ceil(cardPacksTotalCount / pageCount)
@@ -43,7 +47,7 @@ export const PaginationComponent = ({text}:PropsType) => {
                     size={"small"}
                     value={pageCount.toString()}
                     variant={"outlined"}
-                    onChange={changePage}
+                    onChange={changePageCount}
                 >
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
