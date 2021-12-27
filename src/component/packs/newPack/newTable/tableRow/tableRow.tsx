@@ -4,6 +4,7 @@ import {Button} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePack, getPack} from "../../../../../reducers/packReducer";
 import {AppRootStateType} from "../../../../../store/store";
+import {useNavigate} from "react-router-dom";
 
 type RowPropsType = {
     name: string
@@ -18,11 +19,16 @@ type RowPropsType = {
 
 let buttonWrapper = {alignItems:"center", width: "80%",height:"10px",display:"flex",justifyContent:"space-between",alignContent:"start"}
 
-export const Row = ({name, cards, update, createdName,...props}: RowPropsType) => {
+export const Row = ({name, cards, update, createdName,packId,text}: RowPropsType) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const clickDeletePack = () => {
-                dispatch(deletePack({packName:props.text, id:props.packId}))
+                dispatch(deletePack({packName:text, id:packId}))
+    }
+
+    const onCardsNavigateClick = () =>{
+        return navigate('/cards/' + packId)
     }
 
 
@@ -39,7 +45,7 @@ export const Row = ({name, cards, update, createdName,...props}: RowPropsType) =
                         Delete
                     </Button>
                        <Button style={{width: "10%"}} size={"small"} variant={"contained"} color={"success"}>Edit</Button>
-                       <Button  size={"small"} variant={"contained"} color={"inherit"}>Learn</Button>
+                       <Button onClick={onCardsNavigateClick} size={"small"} variant={"contained"} color={"inherit"}>Learn</Button>
                 </div>
 
             </div>
