@@ -8,6 +8,8 @@ import {addPack, getPack} from "../../../../../reducers/packReducer";
 import {AppRootStateType} from "../../../../../store/store";
 import {CustomTable} from "../table/CustomTable";
 import {PaginationComponent} from "../Pagination/PaginationComponent";
+import ModalAdd from '../../../modal/ModalAdd';
+
 
 export const InterfacePack = () => {
     const [value, setValue] = useState("")
@@ -16,22 +18,18 @@ export const InterfacePack = () => {
     const dispatch = useDispatch()
 
 
-    const changeTextFieldValue = (e:ChangeEvent<HTMLInputElement>) =>{
+    const changeTextFieldValue = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
     }
 
-    const searchPack = () =>{
-        dispatch(getPack({packName:value,pageCount: pageSize, page}))
+    const searchPack = () => {
+        dispatch(getPack({packName: value, pageCount: pageSize, page}))
     }
 
     const keySearch = (e: React.KeyboardEvent) => {
         if (e.code == 'Enter') {
             searchPack();
         }
-    }
-
-    const clickAddPack=()=> {
-       dispatch(addPack({packName: value}))
     }
 
 
@@ -41,13 +39,16 @@ export const InterfacePack = () => {
 
                 <div className={style.tools}>
                     <Paper sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 300}}>
-                    <InputBase sx={{ml: 1, flex: 1}} placeholder="Search" value={value} onChange={changeTextFieldValue} onKeyPress={keySearch}/>
-                    <IconButton sx={{p: '5px'}} onClick={searchPack}>
-                        <SearchIcon/>
-                    </IconButton>
-                </Paper>
+                        <InputBase sx={{ml: 1, flex: 1}} placeholder="Search" value={value}
+                                   onChange={changeTextFieldValue} onKeyPress={keySearch}/>
+                        <IconButton sx={{p: '5px'}} onClick={searchPack}>
+                            <SearchIcon/>
+                        </IconButton>
+                    </Paper>
 
-                    <Button variant={"contained"} onClick={clickAddPack}>Add Task</Button>
+                    <Button variant={"contained"}>
+                        <ModalAdd/>
+                    </Button>
                 </div>
 
             </div>

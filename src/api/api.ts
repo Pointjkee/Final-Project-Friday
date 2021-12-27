@@ -1,7 +1,16 @@
 import axios, {AxiosResponse} from 'axios'
 import {ForgotType} from "../reducers/restoreReducer";
 import {GetParamsType, PostPackType, UpdatePackType} from "../reducers/packReducer";
-import {AuthResponseType, CardsParamsType, GetPackType, LoginParamsType, NewCardsType, ResponseType, SetProfileType, UpdateCardType} from "./types";
+import {
+    AuthResponseType,
+    CardsParamsType,
+    GetPackType,
+    LoginParamsType,
+    NewCardsType,
+    ResponseType,
+    SetProfileType,
+    UpdateCardType
+} from "./types";
 import {ChangePasswordType} from "../reducers/newPasswordReducer";
 
 
@@ -38,7 +47,7 @@ export const profileAPI = {
 }
 
 export const packAPI = {
-    getPack(config: GetParamsType|void) {
+    getPack(config: GetParamsType | void) {
         return instance.get<GetPackType>(`/cards/pack?`, {params: config})
     },
     postPack(data?: PostPackType) {
@@ -49,7 +58,7 @@ export const packAPI = {
         return instance.delete(`cards/pack/?id=${id}`)
     },
     updatePack(data: UpdatePackType) {
-        const {_id, name = "OLOLOLOLOLLOL :D"} = data.cardsPack
+        let {_id, name} = data.cardsPack
         return instance.put(`cards/pack`, {cardsPack: {_id, name}})
     }
 
@@ -57,8 +66,8 @@ export const packAPI = {
 
 export const cardsAPI = {
     getCards(params: CardsParamsType) {
-        const {min, max, sortCards, page, pageCount,cardsPack_id} = params
-        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount,cardsPack_id}})
+        const {min, max, sortCards, page, pageCount, cardsPack_id} = params
+        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount, cardsPack_id}})
     },
     setCards(cards: NewCardsType) {
         return instance.post('/cards/card', {card: {...cards}})
@@ -66,8 +75,8 @@ export const cardsAPI = {
     deleteCard(cardId: string) {
         return instance.delete('/cards/card', {params: {id: cardId}})
     },
-    updateCard(updateCard:UpdateCardType) {
-        return instance.put('/cards/card',{card:{...updateCard}})
+    updateCard(updateCard: UpdateCardType) {
+        return instance.put('/cards/card', {card: {...updateCard}})
     },
 
 }
