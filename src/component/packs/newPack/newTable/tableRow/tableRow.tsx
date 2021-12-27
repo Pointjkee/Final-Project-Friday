@@ -1,9 +1,9 @@
 import * as React from 'react';
 import style from './Tabble.module.css'
 import {Button} from "@material-ui/core";
-import {useDispatch} from "react-redux";
-import {deletePack} from "../../../../../reducers/packReducer";
-
+import ModalDelete from "../../../modal/ModalDelete";
+import ModalEdit from '../../../modal/ModalEdit';
+import {NavLink} from "react-router-dom";
 
 type RowPropsType = {
     name: string
@@ -15,8 +15,14 @@ type RowPropsType = {
 }
 
 
-
-let buttonWrapper = {alignItems:"center", width: "80%",height:"10px",display:"flex",justifyContent:"space-between",alignContent:"start"}
+let buttonWrapper = {
+    alignItems: "center",
+    width: "80%",
+    height: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignContent: "start"
+}
 
 export const Row = ({name, cards, update, createdName,...props}: RowPropsType) => {
     const dispatch = useDispatch()

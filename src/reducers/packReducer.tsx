@@ -36,19 +36,20 @@ export const addPack = createAsyncThunk('pack/addPack',
     async (param: { data?: PostPackType, packName: string }, {dispatch, getState}) => {
         const value = getState() as AppRootStateType
         await packAPI.postPack(param.data)
-        dispatch(getPack({packName: param.packName, pageCount: value.pack.pageCount, page: value.pack.page}))
+        dispatch(getPack({pageCount: value.pack.pageCount, page: value.pack.page}))
     })
 
 export const deletePack = createAsyncThunk('pack/deletePack',
-    async (param: { id: string, packName: string}, {dispatch, getState}) => {
+    async (param: { id: string, packName: string }, {dispatch, getState}) => {
         const value = getState() as AppRootStateType
         await packAPI.deletePack(param.id)
         dispatch(getPack({packName: param.packName, pageCount: value.pack.pageCount, page: value.pack.page}))
     })
 
-export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, {dispatch}) => {
+export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, {dispatch, getState}) => {
     packAPI.updatePack(data).then(() => {
-        dispatch(getPack())
+        const value = getState() as AppRootStateType
+        dispatch(getPack({pageCount: value.pack.pageCount, page: value.pack.page}))
     })
 })
 
