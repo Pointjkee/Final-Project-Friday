@@ -1,9 +1,11 @@
 import * as React from 'react';
 import style from './Tabble.module.css'
 import {Button} from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
-import {deletePack, getPack} from "../../../../../reducers/packReducer";
-import {AppRootStateType} from "../../../../../store/store";
+import {useDispatch} from "react-redux";
+import {deletePack} from "../../../../../reducers/packReducer";
+import ModalDelete from "../../../modal/ModalDelete";
+import ModalEdit from "../../../modal/ModalEdit";
+import {useNavigate} from "react-router-dom";
 
 type RowPropsType = {
     name: string
@@ -47,15 +49,14 @@ export const Row = ({name, cards, update, createdName,packId,text}: RowPropsType
 
                 <div style={buttonWrapper}>
                     <Button style={{width: "35%"}} size={"small"} variant={"contained"} color={"error"}>
-                        <ModalDelete text={props.text} packId={props.packId}/>
+                        <ModalDelete text={text} packId={packId}/>
                     </Button>
                     <Button style={{width: "10%"}} size={"small"} variant={"contained"} color={"success"}>
-                        <ModalEdit title={name} packId={props.packId}/>
+                        <ModalEdit title={name} packId={packId}/>
                     </Button>
-                    <NavLink to={'/cards/' + props.packId} style={{textDecoration: 'none'}}>
-                        <Button size={"medium"} variant={"contained"} color={"inherit"}
+                        <Button onClick={onCardsNavigateClick} size={"medium"} variant={"contained"} color={"inherit"}
                                 style={{color: 'black'}}>Learn</Button>
-                    </NavLink>
+
                 </div>
 
             </div>

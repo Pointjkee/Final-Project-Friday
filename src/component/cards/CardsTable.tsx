@@ -6,9 +6,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {CardType, getCards, InitialStateCardType, resetCardsTC, setPage} from "../../reducers/cardReducer";
 import {useParams, useNavigate, Navigate} from "react-router-dom";
 import {Preloader} from "../../common/preloader/Preloader";
-import {Pagination} from "@mui/material";
+import {Button, Pagination} from "@mui/material";
 import {ProfileResponseType} from "../../reducers/profileReducer";
 import arrow from '../../assets/images/arrow.png'
+import AddPopup from "./card/popup/AddPopup";
 
 
 export const CardsTable = () => {
@@ -49,28 +50,34 @@ export const CardsTable = () => {
         dispatch(getCards(id))
     }, [page])
 
-
     return (
         <div className={s.container}>
-            <div className={s.arrow__container} onClick={onBackClick}>
-                <div className={s.arrow}><img src={arrow} alt="arrow"/></div>
-                <div className={s.arrow__title}>Back to Packs</div>
+            <div className={s.header__container}>
+                <div className={s.arrow__container} onClick={onBackClick}>
+                    <div className={s.arrow}><img src={arrow} alt="arrow"/></div>
+                    <div className={s.arrow__title}>Back to Packs</div>
+                </div>
+                <div className={s.button}><Button variant={"contained"}><AddPopup  cardsPack_id={id}
+                                                                                  maxGrade={maxGrade}
+                                                                                  minGrade={minGrade}/></Button></div>
             </div>
-            {status === 'loading' ? <Preloader/>:
-            <table className={s.table}>
-                <thead className={s.table_head}>
-                <tr>
-                    <th>Question</th>
-                    <th>Answer</th>
-                    <th>Grade</th>
-                    <th>Updated</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <Card cards={cards}
-                      profileId={_id}
-                />
-            </table>}
+
+            {status === 'loading' ? <Preloader/> :
+                <table className={s.table}>
+                    <thead className={s.table_head}>
+                    <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Grade</th>
+                        <th>Updated</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <Card
+                        cards={cards}
+                        profileId={_id}
+                    />
+                </table>}
             <div className={s.paginator}>
                 {totalCount > 1 && <Pagination
                     onChange={handlePageChange}

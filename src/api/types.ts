@@ -63,7 +63,7 @@ export type CardsParamsType = {
 }
 
 export type NewCardsType = {
-    cardsPack_id: string
+    cardsPack_id: string |undefined
     question: string
     answer: string
     grade?: number
@@ -73,7 +73,7 @@ export type NewCardsType = {
     questionImg?: string
     questionVideo?: string
     answerVideo?: string
-    type: string
+    type?: string
 }
 
 export type UpdateCardType = {

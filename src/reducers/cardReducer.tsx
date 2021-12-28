@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppRootStateType} from "../store/store";
 import {Dispatch} from "redux";
 import {cardsAPI} from "../api/api";
+import {NewCardsType} from "../api/types";
 
 export type CardType = {
     answer: string
@@ -36,7 +37,7 @@ export const slice = createSlice({
     name: 'cards',
     initialState,
     reducers: {
-        setCard(state,action:PayloadAction<InitialStateCardType>){
+        setCards(state,action:PayloadAction<InitialStateCardType>){
             return action.payload
         },
         setPage(state,action:PayloadAction<{page:number}>){
@@ -53,7 +54,7 @@ export const slice = createSlice({
 })
 
 export const cardReducer = slice.reducer
-export const {setCard,setPage,resetCards,statusCard} = slice.actions
+export const {setCards,setPage,resetCards,statusCard} = slice.actions
 
 
 
@@ -73,7 +74,7 @@ export const getCards = (id: string | undefined) => (dispatch: Dispatch, getStat
     })
         .then(res => {
             if(res.data.cards.length !== 0)
-                dispatch(setCard(res.data))
+                dispatch(setCards(res.data))
                 dispatch(statusCard({status:'success'}))
         })
         .catch(error => {
@@ -83,8 +84,20 @@ export const getCards = (id: string | undefined) => (dispatch: Dispatch, getStat
 
 }
 
-
 export const resetCardsTC = ()=>(dispatch:Dispatch)=>{
     dispatch(statusCard({status:'loading'}))
     dispatch(resetCards({cards:[],cardsTotalCount:0}))
+}
+
+export const setCard = (card:NewCardsType)=>(dispatch:Dispatch<any>)=>{
+    dispatch(statusCard({status:'loading'}))
+    cardsAPI.setCards(card)
+        .then(res=>{
+            dispatch(getCards(card.cardsPack_id))
+            }
+        )
+        .catch(error=>{
+            console.log(error)
+            dispatch(statusCard({status:'error'}))
+        })
 }
