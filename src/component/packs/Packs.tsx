@@ -15,6 +15,8 @@ export const Packs = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const meUserId = useSelector<AppRootStateType, string | null>(s => s.profile.profile._id)
+    const min = useSelector<AppRootStateType, number>(s => s.pack.minCardsCount)
+    const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const pageSize = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
     const page = useSelector<AppRootStateType, number>(s => s.pack.page)
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
@@ -22,7 +24,7 @@ export const Packs = () => {
     let user_id = meUserId !== null && isMePack ? meUserId : "";
 
     useEffect(() => {
-        dispatch(getPack({pageCount: pageSize, user_id}))
+        dispatch(getPack({pageCount: pageSize,min,max, user_id}))
     }, [isMePack])
 
     const onBackClick = () => {

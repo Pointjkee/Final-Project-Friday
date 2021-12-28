@@ -74,7 +74,7 @@ export const InterfacePack = () => {
                     <div style={{display: "flex", alignItems: "center", fontWeight: "bold"}}>
                         <span style={isMePack ? {color: "#cccccc"} : {color: "#84308f"}}>ALL PACKS</span>
                         <Switch checked={isMePack} color={"secondary"} onChange={changeSwitchPack}/>
-                        <span style={isMePack ? {color: "#84308f"} : {color: "#cccccc"}}>ME PACKS</span>
+                        <span style={isMePack ? {color: "#84308f"} : {color: "#cccccc"}}>MY PACKS</span>
                     </div>
 
 

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import Header from "./component/header/Header";
 import RoutesC from "./component/routes/RoutesC";
 import {Preloader} from "./common/preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
