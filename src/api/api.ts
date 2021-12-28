@@ -50,9 +50,8 @@ export const packAPI = {
     getPack(config: GetParamsType | void) {
         return instance.get<GetPackType>(`/cards/pack?`, {params: config})
     },
-    postPack(data?: PostPackType) {
-        let dataOptions = data === undefined ? {cardsPack: {data}} : data
-        return instance.post(`cards/pack`, dataOptions)
+    postPack(data?: PostPackType|void) {
+        return instance.post(`cards/pack`, data)
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack/?id=${id}`)

@@ -12,9 +12,14 @@ export default function SliderCustom() {
     const min = useSelector<AppRootStateType, number>(s => s.pack.minCardsCount)
     const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const pageSize = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
-    const page = useSelector<AppRootStateType, number>(s => s.pack.page)
     const [value, setValue] = React.useState<number[]>([min, max]);
     const dispatch = useDispatch()
+
+    const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
+    const meUserId = useSelector<AppRootStateType, string|null>(s=>s.profile.profile._id)
+
+
+    let user_id = meUserId !== null && isMePack? meUserId:"";
 
     const minDistance = 0;
 
@@ -40,7 +45,7 @@ export default function SliderCustom() {
         if (min !== value[0] || max !== value[1]) {
             dispatch(setMinCardsCount({minCardsCount: value[0]}))
             dispatch(setMaxCardsCount({maxCardsCount: value[1]}))
-            dispatch(getPack({pageCount: pageSize, min: value[0] as number, max: value[1] as number}))
+            dispatch(getPack({pageCount: pageSize,user_id, min: value[0] as number, max: value[1] as number}))
         }
     }
 

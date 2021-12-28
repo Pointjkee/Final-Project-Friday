@@ -25,15 +25,16 @@ export const CustomTable = ({text}:PropsType) => {
 
                 {cardPacks.map((s, index) => {
                     return <div  key={s._id} style={index % 2 === 0 ? {background: "white"} : {background: "#ECECF9"}}>
-                        <Row
+                            <Row
                             text={text}
                             cardUserId={s.user_id}
-                            packId = {s._id}
+                            packId={s._id}
                             name={s.name.substr(0, 35)}
                             cards={s.cardsCount}
                             update={s.updated.substr(0, 35)}
                             createdName={s.user_name.substr(0, 35)}
-                        /></div>
+                        />
+                    </div>
                 })}
             </Paper>
         </div>

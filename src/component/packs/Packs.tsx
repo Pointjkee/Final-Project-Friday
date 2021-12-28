@@ -14,18 +14,15 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 export const Packs = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const meUserId = useSelector<AppRootStateType, string|null>(s=>s.profile.profile._id)
+    const meUserId = useSelector<AppRootStateType, string | null>(s => s.profile.profile._id)
     const pageSize = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
     const page = useSelector<AppRootStateType, number>(s => s.pack.page)
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
 
-    let user_id ="";
-    if(meUserId !== null && isMePack){
-        user_id = meUserId
-    }
+    let user_id = meUserId !== null && isMePack ? meUserId : "";
 
     useEffect(() => {
-        dispatch(getPack({pageCount: pageSize, user_id, page}))
+        dispatch(getPack({pageCount: pageSize, user_id}))
     }, [isMePack])
 
     const onBackClick = () => {
@@ -40,7 +37,7 @@ export const Packs = () => {
                     <div className={s.arrow__container} onClick={onBackClick}>
                         <ArrowCircleLeftIcon color={"primary"}/> Back to Profile
                     </div>
-                    <h2>Packs list</h2>
+                    <h1>Packs list</h1>
                     <InterfacePack/>
                 </div>
             </Paper>

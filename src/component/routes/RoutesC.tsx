@@ -8,6 +8,8 @@ import {NewPassword} from "../newPassword/newPassword";
 import {InfoSentEmail} from "../restorePassword/infoSentEmail/InfoSentEmail";
 import {Packs} from "../packs/Packs";
 import {CardsTable} from "../cards/CardsTable";
+import {ModalAdd} from "../packs/modal/ModalAdd";
+
 
 
 

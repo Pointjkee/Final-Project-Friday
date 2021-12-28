@@ -1,9 +1,10 @@
 import * as React from 'react';
 import style from './Tabble.module.css'
 import {Button} from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
-import {cardPacksType, deletePack} from "../../../../../reducers/packReducer";
+import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../../store/store";
+import ModalDelete from "../../../modal/ModalDelete";
+import ModalEdit from "../../../modal/ModalEdit";
 
 type RowPropsType = {
     name: string
@@ -21,25 +22,18 @@ let buttonWrapper = {
     width: "80%",
     height: "10px",
     display: "flex",
-    justifyContent:"center",
-    gap:"15px",
+    justifyContent: "center",
+    gap: "15px",
 }
 
-export const Row = ({name, cards, update, createdName, cardUserId,...props}: RowPropsType) => {
-    const dispatch = useDispatch()
-    const meProfileId = useSelector<AppRootStateType, string|null>(s => s.profile.profile._id)
-
-
-    const clickDeletePack = () => {
-                dispatch(deletePack({packName:props.text, id:props.packId}))
-    }
-
+export const Row = ({name, cards, update, createdName, cardUserId, ...props}: RowPropsType) => {
+    const meProfileId = useSelector<AppRootStateType, string | null>(s => s.profile.profile._id)
 
     return (
         <div>
             <div className={style.rowTable}>
-                <div className={style.rowText} style={{textAlign:"start"}}> {name} </div>
-                <div className={style.rowText} style={{width:"30%"}}>{cards}</div>
+                <div className={style.rowText} style={{textAlign: "start"}}> {name} </div>
+                <div className={style.rowText} style={{width: "30%"}}>{cards}</div>
                 <div className={style.rowText}>{update}</div>
                 <div className={style.rowText} style={{width: "100%"}}>{createdName}</div>
 
@@ -47,16 +41,11 @@ export const Row = ({name, cards, update, createdName, cardUserId,...props}: Row
 
                     {cardUserId === meProfileId &&
                     <>
-                        <Button style={{width: "30%"}} size={"small"} variant={"contained"} color={"error"} onClick={clickDeletePack}>
-                        Delete
-                    </Button>
-                        <Button style={{width: "30%"}} size={"small"} variant={"contained"} color={"success"}>
-                            Edit
-                        </Button>
+                        <ModalDelete packId={props.packId} text={props.text}/>
+                        <ModalEdit title={name} packId={props.packId}/>
                     </>}
 
-
-                       <Button style={{width: "30%"}} size={"small"} variant={"contained"} color={"secondary"}>Learn</Button>
+                    <Button style={{width: "30%"}} size={"small"} variant={"contained"} color={"secondary"}>Learn</Button>
                 </div>
 
             </div>
