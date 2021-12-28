@@ -4,11 +4,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useDispatch} from "react-redux";
-import {setCard} from "../../../../reducers/cardReducer";
+import {setCard} from "../../../reducers/cardReducer";
 import {useForm} from "react-hook-form";
-import s from "../../../profile/Profile.module.css";
+import s from "../../profile/Profile.module.css";
 import {Input} from "@mui/material";
-import {NewCardsType} from "../../../../api/types";
+import {NewCardsType} from "../../../api/types";
 
 const style = {
     position: 'absolute' as 'absolute',

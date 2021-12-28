@@ -77,7 +77,7 @@ export type NewCardsType = {
 }
 
 export type UpdateCardType = {
-    _id: string
+    _id: string | undefined
     question?: string
     answer?: string
     grade?: number

@@ -9,7 +9,7 @@ import {Preloader} from "../../common/preloader/Preloader";
 import {Button, Pagination} from "@mui/material";
 import {ProfileResponseType} from "../../reducers/profileReducer";
 import arrow from '../../assets/images/arrow.png'
-import AddPopup from "./card/popup/AddPopup";
+import AddPopup from "./popup/AddPopup";
 
 
 export const CardsTable = () => {

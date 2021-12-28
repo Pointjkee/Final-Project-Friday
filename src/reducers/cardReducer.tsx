@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppRootStateType} from "../store/store";
 import {Dispatch} from "redux";
 import {cardsAPI} from "../api/api";
-import {NewCardsType} from "../api/types";
+import {NewCardsType, UpdateCardType} from "../api/types";
 
 export type CardType = {
     answer: string
@@ -96,6 +96,31 @@ export const setCard = (card:NewCardsType)=>(dispatch:Dispatch<any>)=>{
             dispatch(getCards(card.cardsPack_id))
             }
         )
+        .catch(error=>{
+            console.log(error)
+            dispatch(statusCard({status:'error'}))
+        })
+}
+
+export const updateCard =(updateCard:UpdateCardType,cardsPack_id:string)=>(dispatch:Dispatch<any>)=>{
+    dispatch(statusCard({status:'loading'}))
+    cardsAPI.updateCard(updateCard)
+        .then(res=>{
+            dispatch(getCards(cardsPack_id))
+        })
+        .catch(error=>{
+            console.log(error)
+            dispatch(statusCard({status:'error'}))
+        })
+}
+
+
+export const deleteCard =(cardId:string,cardsPack_id:string)=>(dispatch:Dispatch<any>)=>{
+    dispatch(statusCard({status:'loading'}))
+    cardsAPI.deleteCard(cardId)
+        .then(res=>{
+            dispatch(getCards(cardsPack_id))
+        })
         .catch(error=>{
             console.log(error)
             dispatch(statusCard({status:'error'}))

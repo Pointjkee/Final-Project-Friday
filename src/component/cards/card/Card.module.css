@@ -1,3 +1,11 @@
 .tableWrapper tr {
     height: 48px;
 }
+
+.buttonWrapper{
+    display: flex;
+    justify-content: space-evenly;
+}
+.tableButton{
+    width:200px;
+}
