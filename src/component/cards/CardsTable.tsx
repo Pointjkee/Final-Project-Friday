@@ -28,7 +28,7 @@ export const CardsTable = () => {
         minGrade,
         page,
         pageCount,
-        packUserId
+        packUserId,
     } = cardTab
 
     const {
@@ -57,9 +57,9 @@ export const CardsTable = () => {
                     <div className={s.arrow}><img src={arrow} alt="arrow"/></div>
                     <div className={s.arrow__title}>Back to Packs</div>
                 </div>
-                <div className={s.button}><Button variant={"contained"}><AddPopup  cardsPack_id={id}
-                                                                                  maxGrade={maxGrade}
-                                                                                  minGrade={minGrade}/></Button></div>
+                {_id === packUserId && <div className={s.button}><Button variant={"contained"}><AddPopup cardsPack_id={id}
+                                                                                   maxGrade={maxGrade}
+                                                                                   minGrade={minGrade}/></Button></div>}
             </div>
 
             {status === 'loading' ? <Preloader/> :
