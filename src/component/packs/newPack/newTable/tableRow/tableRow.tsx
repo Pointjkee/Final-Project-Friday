@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../../store/store";
 import ModalDelete from "../../../modal/ModalDelete";
 import ModalEdit from "../../../modal/ModalEdit";
+import {NavLink} from "react-router-dom";
 
 type RowPropsType = {
     name: string
@@ -44,8 +45,10 @@ export const Row = ({name, cards, update, createdName, cardUserId, ...props}: Ro
                         <ModalDelete packId={props.packId} text={props.text}/>
                         <ModalEdit title={name} packId={props.packId}/>
                     </>}
-
-                    <Button style={{width: "30%"}} size={"small"} variant={"contained"} color={"secondary"}>Learn</Button>
+                    <NavLink to={'/cards/' + props.packId} style={{textDecoration: 'none'}}>
+                        <Button style={{width: "30%"}} size={"small"} variant={"contained"}
+                                color={"secondary"}>Learn</Button>
+                    </NavLink>
                 </div>
 
             </div>
