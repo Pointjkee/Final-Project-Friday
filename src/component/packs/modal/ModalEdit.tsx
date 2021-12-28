@@ -4,8 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {ChangeEvent, useState, KeyboardEvent} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
+import {useDispatch} from "react-redux";
 import {updatePack} from "../../../reducers/packReducer";
 
 const style = {
@@ -13,6 +12,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    borderRadius: "8px",
     width: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',

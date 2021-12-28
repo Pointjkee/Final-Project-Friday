@@ -19,7 +19,7 @@ const initialState = {
         user_name: "",
     }],
     cardPacksTotalCount: 0,
-    maxCardsCount: 0,
+    maxCardsCount: 103,
     minCardsCount: 0,
     page: 1,
     pageCount: 10,
@@ -62,17 +62,26 @@ export const slice = createSlice({
         },
         setCurrentPage: (state, action: PayloadAction<{ page: number }>) => {
             state.page = action.payload.page
+        },
+        setMaxCardsCount: (state, action: PayloadAction<{ maxCardsCount: number }>) => {
+            state.maxCardsCount = action.payload.maxCardsCount
+        },
+        setMinCardsCount: (state, action: PayloadAction<{ minCardsCount: number }>) => {
+            state.minCardsCount = action.payload.minCardsCount
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(getPack.fulfilled, (state, action) => {
-                return action.payload
+                state.cardPacks =  action.payload.cardPacks
+                state.cardPacksTotalCount =  action.payload.cardPacksTotalCount
+                state.page =  action.payload.page
+                state.pageCount =  action.payload.pageCount
             })
     }
 });
 
-export const {setPageCount,setCurrentPage} = slice.actions
+export const {setPageCount,setCurrentPage,setMaxCardsCount,setMinCardsCount} = slice.actions
 
 export const packReducer = slice.reducer
 

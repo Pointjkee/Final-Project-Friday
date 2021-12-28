@@ -12,22 +12,34 @@ type PropsType = {
 export const PaginationComponent = ({text}:PropsType) => {
     const dispatch = useDispatch()
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(s => s.pack.cardPacksTotalCount)
+    const min = useSelector<AppRootStateType, number>(s => s.pack.minCardsCount)
+    const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const pageCount = useSelector<AppRootStateType, number>(s=>s.pack.pageCount)
-    const page = useSelector<AppRootStateType, number>(s => s.pack.page)
+    const pageStore = useSelector<AppRootStateType, number>(s => s.pack.page)
+
+    const meUserId = useSelector<AppRootStateType, string|null>(s=>s.profile.profile._id)
+    const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
+
+
+    let user_id = "";
+    if(meUserId !== null && isMePack){
+        user_id = meUserId
+    }
 
     const onClickPageItem = (pageNumber: number) => {
-        if(pageNumber !== page){
-            dispatch(getPack({page: pageNumber, pageCount: pageCount, packName:text}))
+        if(pageNumber !== pageStore){
+            dispatch(getPack({page: pageNumber,user_id,max:max,min:min, pageCount: pageCount, packName:text}))
         }
     }
 
     const changePageCount = (event: SelectChangeEvent<string>) => {
         if(+event.target.value !== pageCount){
             dispatch(setPageCount({pageSize: +event.target.value}))
-            dispatch(getPack({pageCount: +event.target.value, page, packName:text}))
+            dispatch(getPack({pageCount: +event.target.value,max:max,min:min,user_id, packName:text}))
         }
 
     }
+
 
     let pagesCount = Math.ceil(cardPacksTotalCount / pageCount)
 
@@ -38,7 +50,7 @@ export const PaginationComponent = ({text}:PropsType) => {
                 <Pagination onChange={(event, page) => {
                     onClickPageItem(page)
                 }}
-                            color={"primary"} count={pagesCount} shape="rounded"
+                         page={pageStore} color={"primary"} count={pagesCount} shape="rounded"
                 />
 
 

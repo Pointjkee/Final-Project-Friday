@@ -6,7 +6,8 @@ import {AppRootStateType} from "../../store/store";
 import {editProfile, InitialStateTypeProfile} from "../../reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import nonAvatarPic from "../../assets/images/nonAvatarPic.png"
-import {Navigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {logOut} from "../../reducers/authReducer";
 import {RequestStatusType} from "../../reducers/appReducer";
 import {Preloader} from "../../common/preloader/Preloader";
@@ -16,6 +17,7 @@ const Profile = () => {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const profile = useSelector<AppRootStateType, InitialStateTypeProfile>(state => state.profile);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
 
     const {
         email,
@@ -62,7 +64,7 @@ const Profile = () => {
                         alt="photo"/>
                 </div>
                 {status === 'loading' && <Preloader/>}
-                <div>
+                <div style={{marginTop:"10px"}}>
                     <Button onClick={onLogOutClick} variant={"outlined"}>Log out</Button>
                 </div>
                 {!editMode && <div className={s.info}>
@@ -70,6 +72,14 @@ const Profile = () => {
                     <div className={s.profileData} onDoubleClick={activateEditMode}>{name}</div>
                     <span>Email</span>
                     <div className={s.profileData} onDoubleClick={activateEditMode}>{email}</div>
+
+                    <Link to="/packs" style={{textDecoration: 'none'}}>
+                        <Button size='small' sx={{height:"40px", width:"100%", marginTop:"20px"}} variant={"contained"}>
+                            Go to pack
+                            <ArrowForwardIcon sx={{marginLeft:"10px", padding:"2px"}}/>
+                        </Button>
+                    </Link>
+
                 </div>}
 
                 {editMode && <form className={s.form} onSubmit={onSubmit}>
@@ -83,6 +93,7 @@ const Profile = () => {
                         <Button onClick={deactivateEditMode} variant="contained" color="secondary">Cancel</Button>
                         <Button variant="contained" color="primary" type="submit">Save</Button>
                     </div>
+
                 </form>
                 }
 

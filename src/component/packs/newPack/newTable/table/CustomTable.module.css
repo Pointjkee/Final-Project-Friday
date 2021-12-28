@@ -4,7 +4,7 @@
     justify-content: space-between;
     margin: 0 auto 30px auto;
     width: 80%;
-    min-height: 80vh;
+    min-height: 90vh;
     border-radius: 8px;
     padding: 20px 0;
 }
@@ -35,4 +35,12 @@
 
 .textHeader {
     width: 80%;
+}
+
+.arrow__container{
+    display: flex;
+    width: 190px;
+    align-items: center;
+    padding: 40px 40px;
+    cursor: pointer;
 }

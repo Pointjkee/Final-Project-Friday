@@ -24,12 +24,9 @@ function App() {
 
     return (
         <div className="App">
-            <Header/>
             <RoutesC/>
         </div>
     )
 }
-
-
 
 export default App;
