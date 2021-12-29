@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import {useDispatch} from "react-redux";
 import {useForm} from "react-hook-form";
 import {NewCardsType} from "../../../api/types";
-import {setCard, updateCard} from "../../../reducers/cardReducer";
+import {updateCard} from "../../../reducers/cardReducer";
 import s from "../../profile/Profile.module.css";
 import {Input} from "@mui/material";
 
@@ -15,9 +15,9 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    borderRadius: "8px",
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: '#ECECF9',
     boxShadow: 24,
     p: 4,
 };

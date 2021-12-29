@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {useEffect} from 'react';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -11,18 +10,7 @@ import {AppRootStateType} from "../../store/store";
 import {CardType} from "../../reducers/cardReducer";
 import {Rating} from "./raiting/Rating";
 import {Preloader} from "../../common/preloader/Preloader";
-
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+import s from './CardGame.module.css'
 
 
 export default function CardGame() {
@@ -55,36 +43,46 @@ export default function CardGame() {
         navigate(-1)
     }
 
-    return (<>
-            <Modal
-                open
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Learn Cards
-                    </Typography>
-                    {status === 'loading' ? <Preloader/> : <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        <div>
+    return <>
+        <Modal
+            open
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <div className={s.container}>
+                <div className={s.title}>
+                    Learn Cards
+                </div>
+                {status === 'loading' ? <Preloader/> :
+                    <div className={s.wrapper}>
+                        <div className={s.question}>
                             Question: {card.question}
                         </div>
                         {showAnswer && <div>
-                            <div>Answer: {card.answer}</div>
-                            <div>Please rate question:
+                            <div className={s.answer}>Answer: {card.answer}</div>
+                            <div className={s.rate}>Please rate question:
                                 <div><Rating cardId={card._id} cardPack_id={id} value={markValue}
                                              setValue={onSetValueClick}/></div>
                             </div>
                         </div>}
-                        <span>
-                         {!showAnswer &&
-                         <Button size='small' onClick={() => onSetShowAnswerClick(true)}>Show Answer</Button>}
-                            <Button onClick={onNextCardClick} size='small'>Next</Button>
-                          <Button size='small' onClick={onCancelClick}>Cancel</Button>
-                      </span>
-                    </Typography>}
-                </Box>
-            </Modal>
-        </>
-    );
+                        <div className={s.buttonWrapper}>
+                            {!showAnswer &&
+                            <div style={{paddingLeft:'40px'}}>
+                                <Button size='small' variant="contained" color='success'
+                                        onClick={() => onSetShowAnswerClick(true)}>Show Answer</Button>
+                            </div>}
+                            <div className={s.button}>
+                                <div>
+                                    <Button  onClick={onNextCardClick} variant="contained" size='small'>Next</Button>
+                                </div>
+                                <div>
+                                    <Button size='small' variant="contained" color='secondary'
+                                            onClick={onCancelClick}>Cancel</Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
+            </div>
+        </Modal>
+    </>;
 };

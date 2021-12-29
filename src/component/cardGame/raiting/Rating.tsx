@@ -23,24 +23,27 @@ export const Rating = ({cardId, cardPack_id, value, setValue}: RatingPropsType) 
 
 
     return (
-        <div className={s.starWrapper}>
-            <Star setValue={() => {
-                setValue(1)
-            }} select={value > 0}/>
-            <Star setValue={() => {
-                setValue(2)
-            }} select={value > 1}/>
-            <Star setValue={() => {
-                setValue(3)
-            }} select={value > 2}/>
-            <Star setValue={() => {
-                setValue(4)
-            }} select={value > 3}/>
-            <Star setValue={() => {
-                setValue(5)
-            }} select={value > 4}/>
-            <div><Button onClick={onConfirmClick}>Confirm</Button></div>
+        <div className={s.container}>
+            <div className={s.starWrapper}>
+                <Star setValue={() => {
+                    setValue(1)
+                }} select={value > 0}/>
+                <Star setValue={() => {
+                    setValue(2)
+                }} select={value > 1}/>
+                <Star setValue={() => {
+                    setValue(3)
+                }} select={value > 2}/>
+                <Star setValue={() => {
+                    setValue(4)
+                }} select={value > 3}/>
+                <Star setValue={() => {
+                    setValue(5)
+                }} select={value > 4}/>
+            </div>
+            <div><Button size='small' variant="contained" onClick={onConfirmClick}>Confirm</Button></div>
         </div>
+
     );
 };
 

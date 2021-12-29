@@ -9,9 +9,6 @@ import {InfoSentEmail} from "../restorePassword/infoSentEmail/InfoSentEmail";
 import {Packs} from "../packs/Packs";
 import {CardsTable} from "../cards/CardsTable";
 import CardGame from "../cardGame/CardGame";
-import {ModalAdd} from "../packs/modal/ModalAdd";
-
-
 
 
 const RoutesC = () => {

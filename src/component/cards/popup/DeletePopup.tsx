@@ -11,9 +11,9 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    borderRadius: "8px",
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: '#ECECF9',
     boxShadow: 24,
     p: 4,
 };
@@ -42,14 +42,14 @@ export default function DeletePopup({cardId,cardsPack_id}:DeletePopupPropsType) 
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Are you sure?
-                    </Typography>
+                    <div style = {{display: 'flex',justifyContent: 'center',fontWeight: 'bold',fontSize: '30px'}}>
+                        You are sure?
+                    </div>
                     <Typography id="modal-modal-description" sx={{mt: 2}}>
-                      <span>
-                          <Button size='small' onClick={clickDeletePack}>Yes</Button>
-                          <Button size='small' onClick={handleClose}>I changed my mind</Button>
-                      </span>
+                      <div style ={{display:'flex', justifyContent:'space-around'}}>
+                          <Button size='small' variant="contained" color="error" onClick={clickDeletePack}>Yes</Button>
+                          <Button size='small'  variant="contained" color='success' onClick={handleClose}>I changed my mind</Button>
+                      </div>
                     </Typography>
                 </Box>
             </Modal>

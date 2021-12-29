@@ -2,9 +2,9 @@
 .container {
     position: relative;
     width: 1008px;
-    height: 636px;
+    height: 450px;
     left: calc(50% - 504px);
-    top: 84px;
+    top: 50%;
     background: #FEFEFF;
     border-radius: 8px;
 }
@@ -14,8 +14,6 @@
     border-collapse: collapse;
     position: relative;
     width: 960px;
-    height: 432px;
-    top: 40px;
     border: 1px solid #ECECF9;
     left: calc(50% - 480px);
     border-radius: 8px;
@@ -32,28 +30,35 @@
 
 .paginator {
     position: absolute;
-    top: 590px;
+    top: 390px;
     left: 20px
 }
 
-.arrow__container{
+.arrow__container {
     display: flex;
-    width: 160px;
+    width: 200px;
     font-size: 18px;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    font-weight: bolder;
+    font-weight: 500;
+    padding: 20px 0 0 20px;
 }
 
-.arrow{
+.arrow {
     display: flex;
     align-items: center;
 }
 
-.arrow__title{
-    padding-left: 10px;
+.arrow__title {
     display: flex;
     font-weight: 600;
     font-size: 20px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px 70px;
 }
