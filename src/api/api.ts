@@ -50,9 +50,8 @@ export const packAPI = {
     getPack(config: GetParamsType | void) {
         return instance.get<GetPackType>(`/cards/pack?`, {params: config})
     },
-    postPack(data?: PostPackType) {
-        let dataOptions = data === undefined ? {cardsPack: {data}} : data
-        return instance.post(`cards/pack`, dataOptions)
+    postPack(data?: PostPackType|void) {
+        return instance.post(`cards/pack`, data)
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack/?id=${id}`)
@@ -66,8 +65,8 @@ export const packAPI = {
 
 export const cardsAPI = {
     getCards(params: CardsParamsType) {
-        const {min, max, sortCards, page, pageCount, cardsPack_id} = params
-        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount, cardsPack_id}})
+        const {min, max, sortCards, page, pageCount,cardsPack_id} = params
+        return instance.get('/cards/card', {params: {min, max, sortCards, page, pageCount,cardsPack_id}})
     },
     setCards(cards: NewCardsType) {
         return instance.post('/cards/card', {card: {...cards}})
@@ -75,8 +74,8 @@ export const cardsAPI = {
     deleteCard(cardId: string) {
         return instance.delete('/cards/card', {params: {id: cardId}})
     },
-    updateCard(updateCard: UpdateCardType) {
-        return instance.put('/cards/card', {card: {...updateCard}})
+    updateCard(updateCard:UpdateCardType) {
+        return instance.put('/cards/card',{card:{...updateCard}})
     },
     gradeCard(grade:number,card_id:string){
         return instance.put('/cards/grade', {grade,card_id})

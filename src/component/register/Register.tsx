@@ -4,7 +4,7 @@ import {registerThunk} from "../../reducers/registerReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {Link, Navigate} from "react-router-dom";
-import {Container, IconButton, InputAdornment, TextField} from "@mui/material";
+import {IconButton, InputAdornment, TextField} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import {Paper} from "@material-ui/core";

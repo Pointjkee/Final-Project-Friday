@@ -4,8 +4,8 @@
 }
 
 .container {
-    width: 413px;
-    height: 540px;
+    width: 500px;
+    min-height: 550px;
     /*left: calc(50% - 206px);*/
     box-shadow: 4px 8px 25px -3px rgba(180, 180, 180, 0.35);
     background: white;
@@ -53,8 +53,8 @@
 }
 
 .photo img {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     margin-top: 20px;
 }

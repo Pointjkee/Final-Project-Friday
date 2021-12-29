@@ -19,37 +19,40 @@ const initialState = {
         user_name: "",
     }],
     cardPacksTotalCount: 0,
-    maxCardsCount: 0,
+    maxCardsCount: 103,
     minCardsCount: 0,
     page: 1,
     pageCount: 10,
 }
 
 
-export const getPack = createAsyncThunk('pack/getPack', async (params: GetParamsType | void, {dispatch}) => {
+export const getPack = createAsyncThunk('pack/getPack', async (params: GetParamsType | void) => {
     const res = await packAPI.getPack(params)
     return res.data
 })
 
 
 export const addPack = createAsyncThunk('pack/addPack',
-    async (param: { data?: PostPackType, packName: string }, {dispatch, getState}) => {
+    async (data: PostPackType|void, {dispatch, getState}) => {
         const value = getState() as AppRootStateType
-        await packAPI.postPack(param.data)
-        dispatch(getPack({pageCount: value.pack.pageCount, page: value.pack.page}))
+        let user_id = value.profile.profile._id !== null && value.app.isMePack? value.profile.profile._id: "";
+        await packAPI.postPack(data)
+        dispatch(getPack({pageCount: value.pack.pageCount,user_id}))
     })
 
 export const deletePack = createAsyncThunk('pack/deletePack',
     async (param: { id: string, packName: string }, {dispatch, getState}) => {
         const value = getState() as AppRootStateType
+        let user_id = value.profile.profile._id !== null && value.app.isMePack? value.profile.profile._id: "";
         await packAPI.deletePack(param.id)
-        dispatch(getPack({packName: param.packName, pageCount: value.pack.pageCount, page: value.pack.page}))
+        dispatch(getPack({packName: param.packName,user_id, pageCount: value.pack.pageCount, page: value.pack.page}))
     })
 
 export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, {dispatch, getState}) => {
     packAPI.updatePack(data).then(() => {
         const value = getState() as AppRootStateType
-        dispatch(getPack({pageCount: value.pack.pageCount, page: value.pack.page}))
+        let user_id = value.profile.profile._id !== null && value.app.isMePack? value.profile.profile._id: "";
+        dispatch(getPack({pageCount: value.pack.pageCount,user_id}))
     })
 })
 
@@ -62,17 +65,26 @@ export const slice = createSlice({
         },
         setCurrentPage: (state, action: PayloadAction<{ page: number }>) => {
             state.page = action.payload.page
+        },
+        setMaxCardsCount: (state, action: PayloadAction<{ maxCardsCount: number }>) => {
+            state.maxCardsCount = action.payload.maxCardsCount
+        },
+        setMinCardsCount: (state, action: PayloadAction<{ minCardsCount: number }>) => {
+            state.minCardsCount = action.payload.minCardsCount
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(getPack.fulfilled, (state, action) => {
-                return action.payload
+                state.cardPacks =  action.payload.cardPacks
+                state.cardPacksTotalCount =  action.payload.cardPacksTotalCount
+                state.page =  action.payload.page
+                state.pageCount =  action.payload.pageCount
             })
     }
 });
 
-export const {setPageCount, setCurrentPage} = slice.actions
+export const {setPageCount,setCurrentPage,setMaxCardsCount,setMinCardsCount} = slice.actions
 
 export const packReducer = slice.reducer
 
@@ -119,7 +131,7 @@ export type GetParamsType = {
     packName?: string
     min?: number
     max?: number
-    sortPacks?: number
+    sortPacks?: number| string
     page?: number
     pageCount?: number
     user_id?: string

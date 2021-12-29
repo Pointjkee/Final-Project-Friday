@@ -4,18 +4,18 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {ChangeEvent, useState, KeyboardEvent} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
+import {useDispatch} from "react-redux";
 import {updatePack} from "../../../reducers/packReducer";
+import {TextField} from "@material-ui/core";
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    borderRadius: "8px",
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: '#ECECF9',
     boxShadow: 24,
     p: 4,
 };
@@ -51,7 +51,9 @@ export default function ModalEdit(props: propsType) {
 
     return (
         <div>
-            <Button style={{color: 'black'}} size='small' onClick={handleOpen}>Edit</Button>
+            <Button style={{width: "30%"}} size={"small"} variant={"contained"} color={"success"} onClick={handleOpen}>
+            Edit
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -59,13 +61,15 @@ export default function ModalEdit(props: propsType) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Новое название
+                    <Typography id="modal-modal-title" variant="h5" component="h2" style={{display:"flex", justifyContent:"center"}}>
+                        NEW NAME
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        <input onChange={onChangeHandler} value={name} onKeyPress={onKeyPressHandler}/>
-                        <Button size='small' onClick={upTitleHandler}>Ок</Button>
-                        <Button size='small' onClick={handleClose}>Нет</Button>
+                    <Typography id="modal-modal-description" sx={{mt: 3, width:"100%"}} style={{display:"flex", gap: "20px",flexDirection:"column"}}>
+                        <TextField color={"success"} variant={"standard"} size={"small"} onChange={onChangeHandler} value={name} onKeyPress={onKeyPressHandler}/>
+                        <div style={{display:"flex",justifyContent:"center", gap: "10px"}}>
+                            <Button variant={"contained"} color={"success"} size='small' onClick={upTitleHandler}>Edit</Button>
+                            <Button variant={"contained"} color={"inherit"} size='small' onClick={handleClose}>Сancel</Button>
+                        </div>
                     </Typography>
                 </Box>
             </Modal>
