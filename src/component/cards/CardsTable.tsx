@@ -4,7 +4,7 @@ import Card from "./card/Card";
 import {AppRootStateType} from "../../store/store";
 import {useDispatch, useSelector} from "react-redux";
 import {CardType, getCards, InitialStateCardType, resetCardsTC, setPage} from "../../reducers/cardReducer";
-import {useParams, useNavigate, Navigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Preloader} from "../../common/preloader/Preloader";
 import {Button, Pagination} from "@mui/material";
 import {ProfileResponseType} from "../../reducers/profileReducer";

@@ -6,6 +6,7 @@ import {deletePack} from "../../../../../reducers/packReducer";
 import ModalDelete from "../../../modal/ModalDelete";
 import ModalEdit from "../../../modal/ModalEdit";
 import {useNavigate} from "react-router-dom";
+import CardGame from "../../../../cardGame/CardGame";
 
 type RowPropsType = {
     name: string
@@ -38,6 +39,9 @@ export const Row = ({name, cards, update, createdName,packId,text}: RowPropsType
         return navigate('/cards/' + packId)
     }
 
+    const onGameNavigateClick =()=>{
+         navigate('/game/' + packId)
+    }
 
     return (
         <div>
@@ -56,10 +60,11 @@ export const Row = ({name, cards, update, createdName,packId,text}: RowPropsType
                     </Button>
                         <Button onClick={onCardsNavigateClick} size={"medium"} variant={"contained"} color={"inherit"}
                                 style={{color: 'black'}}>Learn</Button>
+                    <Button onClick={onGameNavigateClick}>Play</Button>
 
                 </div>
 
             </div>
         </div>
     )
-}
+};

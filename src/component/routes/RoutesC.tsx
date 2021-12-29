@@ -9,6 +9,7 @@ import {NewPassword} from "../newPassword/newPassword";
 import {InfoSentEmail} from "../restorePassword/infoSentEmail/InfoSentEmail";
 import {Packs} from "../packs/Packs";
 import {CardsTable} from "../cards/CardsTable";
+import CardGame from "../cardGame/CardGame";
 
 
 
@@ -27,6 +28,7 @@ const RoutesC = () => {
                 <Route path="packs" element={<Packs/>}/>
                 <Route path="packs" element={<Packs/>}/>
                 <Route path="cards/:id" element={<CardsTable/>}/>
+                <Route path="game/:id" element={<CardGame/>} />
                 <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
             </Routes>
         </div>
