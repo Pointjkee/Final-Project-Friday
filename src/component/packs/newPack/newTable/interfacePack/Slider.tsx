@@ -12,6 +12,7 @@ export default function SliderCustom() {
     const min = useSelector<AppRootStateType, number>(s => s.pack.minCardsCount)
     const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const pageSize = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
+    const sortPacks = useSelector<AppRootStateType, string>(s => s.app.sortPacks)
     const [value, setValue] = React.useState<number[]>([min, max]);
     const dispatch = useDispatch()
 
@@ -32,16 +33,14 @@ export default function SliderCustom() {
             if (activeThumb === 0) {
                 const clamped = Math.min(newValue[0], 103 - minDistance);
                 setValue([clamped, clamped + minDistance]);
-                dispatch(setMinCardsCount({minCardsCount: value[0]}))
+
             } else {
                 const clamped = Math.max(newValue[1], minDistance);
                 setValue([clamped - minDistance, clamped]);
-                dispatch(setMaxCardsCount({maxCardsCount: value[1]}))
+
             }
         } else {
             setValue(newValue as number[]);
-            dispatch(setMinCardsCount({minCardsCount: value[0]}))
-            dispatch(setMaxCardsCount({maxCardsCount: value[1]}))
         }
     };
 
@@ -49,7 +48,7 @@ export default function SliderCustom() {
         if (min !== value[0] || max !== value[1]) {
             dispatch(setMinCardsCount({minCardsCount: value[0]}))
             dispatch(setMaxCardsCount({maxCardsCount: value[1]}))
-            dispatch(getPack({pageCount: pageSize, user_id, min: value[0] as number, max: value[1] as number}))
+            dispatch(getPack({sortPacks,pageCount: pageSize, user_id, min: value[0] as number, max: value[1] as number}))
         }
     }
 

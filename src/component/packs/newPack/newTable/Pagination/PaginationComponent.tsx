@@ -16,7 +16,7 @@ export const PaginationComponent = ({text}:PropsType) => {
     const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const pageCount = useSelector<AppRootStateType, number>(s=>s.pack.pageCount)
     const pageStore = useSelector<AppRootStateType, number>(s => s.pack.page)
-
+    const sortPacks = useSelector<AppRootStateType, string>(s => s.app.sortPacks)
     const meUserId = useSelector<AppRootStateType, string|null>(s=>s.profile.profile._id)
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
 
@@ -28,14 +28,14 @@ export const PaginationComponent = ({text}:PropsType) => {
 
     const onClickPageItem = (pageNumber: number) => {
         if(pageNumber !== pageStore){
-            dispatch(getPack({page: pageNumber,user_id,max:max,min:min, pageCount: pageCount, packName:text}))
+            dispatch(getPack({page: pageNumber,user_id,max:max,min:min,sortPacks, pageCount: pageCount, packName:text}))
         }
     }
 
     const changePageCount = (event: SelectChangeEvent<string>) => {
         if(+event.target.value !== pageCount){
             dispatch(setPageCount({pageSize: +event.target.value}))
-            dispatch(getPack({pageCount: +event.target.value,max:max,min:min,user_id, packName:text}))
+            dispatch(getPack({pageCount: +event.target.value,max:max,min:min,user_id, packName:text,sortPacks}))
         }
 
     }

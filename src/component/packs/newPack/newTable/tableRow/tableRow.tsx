@@ -23,8 +23,7 @@ let buttonWrapper = {
     width: "80%",
     height: "10px",
     display: "flex",
-    justifyContent: "center",
-    gap: "15px",
+    justifyContent: "space-around",
 }
 
 export const Row = ({name, cards, update, createdName, cardUserId, ...props}: RowPropsType) => {
@@ -35,8 +34,8 @@ export const Row = ({name, cards, update, createdName, cardUserId, ...props}: Ro
             <div className={style.rowTable}>
                 <div className={style.rowText} style={{textAlign: "start"}}> {name} </div>
                 <div className={style.rowText} style={{width: "30%"}}>{cards}</div>
-                <div className={style.rowText}>{update}</div>
-                <div className={style.rowText} style={{width: "100%"}}>{createdName}</div>
+                <div className={style.rowText} style={{width: "100%"}}>{update}</div>
+                <div className={style.rowText}>{createdName}</div>
 
                 <div style={buttonWrapper}>
 

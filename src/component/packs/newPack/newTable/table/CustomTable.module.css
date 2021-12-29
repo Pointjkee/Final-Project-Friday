@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
     min-height: 90vh;
     border-radius: 8px;
     padding: 20px 0;
@@ -21,10 +21,11 @@
     justify-content: space-between;
     align-items: center;
     background: #d6d6f1;
-    height: 50px;
+    height: 60px;
     text-align: center;
     font-weight: bold;
     padding: 0 30px;
+    font-size: large;
 }
 
 
@@ -43,4 +44,9 @@
     align-items: center;
     padding: 40px 40px;
     cursor: pointer;
+}
+.searchHeader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -4,7 +4,7 @@ import {Button, IconButton, InputBase, Paper, Switch} from "@material-ui/core";
 import SearchIcon from "@mui/icons-material/Search";
 import {ChangeEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addPack, getPack} from "../../../../../reducers/packReducer";
+import {getPack} from "../../../../../reducers/packReducer";
 import {AppRootStateType} from "../../../../../store/store";
 import {CustomTable} from "../table/CustomTable";
 import {PaginationComponent} from "../Pagination/PaginationComponent";
@@ -15,10 +15,8 @@ import {ModalAdd} from "../../../modal/ModalAdd";
 
 export const InterfacePack = () => {
     const [value, setValue] = useState("")
-    const page = useSelector<AppRootStateType, number>(s => s.pack.page)
-    const min = useSelector<AppRootStateType, number>(s => s.pack.minCardsCount)
-    const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const pageCount = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
+    const sortPacks = useSelector<AppRootStateType, string>(s => s.app.sortPacks)
     const dispatch = useDispatch()
 
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
@@ -33,12 +31,12 @@ export const InterfacePack = () => {
     }
 
     const searchPack = () => {
-        dispatch(getPack({packName: value, user_id, pageCount}))
+        dispatch(getPack({packName: value, user_id, pageCount,sortPacks}))
     }
 
     const resetText = () => {
         setValue("")
-        dispatch(getPack({pageCount, user_id}))
+        dispatch(getPack({pageCount, user_id,sortPacks}))
     }
 
     const keySearch = (e: React.KeyboardEvent) => {
@@ -50,7 +48,6 @@ export const InterfacePack = () => {
     const changeSwitchPack = () => {
         dispatch(changeMePackStatus(!isMePack))
     }
-
 
     return (
         <div>
