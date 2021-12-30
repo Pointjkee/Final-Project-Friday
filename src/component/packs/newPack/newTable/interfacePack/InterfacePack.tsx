@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './InterfacePack.module.css'
-import {Button, IconButton, InputBase, Paper, Switch} from "@material-ui/core";
+import {IconButton, InputBase, Paper, Switch} from "@material-ui/core";
 import SearchIcon from "@mui/icons-material/Search";
 import {ChangeEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,6 +17,8 @@ export const InterfacePack = () => {
     const [value, setValue] = useState("")
     const pageCount = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
     const sortPacks = useSelector<AppRootStateType, string>(s => s.app.sortPacks)
+    const min = useSelector<AppRootStateType, number>(s => s.pack.minCardsCount)
+    const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const dispatch = useDispatch()
 
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
@@ -31,12 +33,12 @@ export const InterfacePack = () => {
     }
 
     const searchPack = () => {
-        dispatch(getPack({packName: value, user_id, pageCount,sortPacks}))
+        dispatch(getPack({packName: value, min, max, user_id, pageCount, sortPacks}))
     }
 
     const resetText = () => {
         setValue("")
-        dispatch(getPack({pageCount, user_id,sortPacks}))
+        dispatch(getPack({pageCount, user_id, sortPacks}))
     }
 
     const keySearch = (e: React.KeyboardEvent) => {
@@ -73,11 +75,9 @@ export const InterfacePack = () => {
                         <Switch checked={isMePack} color={"secondary"} onChange={changeSwitchPack}/>
                         <span style={isMePack ? {color: "#84308f"} : {color: "#cccccc"}}>MY PACKS</span>
                     </div>
-
-
                 </div>
-
             </div>
+
             <CustomTable text={value}/>
             <PaginationComponent text={value}/>
         </div>

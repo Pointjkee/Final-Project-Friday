@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {userAPI} from "../api/api";
-import {errorMessageEmail} from "./restoreReducer";
+import {setErrorMessage} from "./appReducer";
+
 
 const initialState = {
     statusNewPassword: false
@@ -29,7 +30,7 @@ export const changePassword = (newPassword: ChangePasswordType) => (dispatch:Dis
             })
             .catch(error => {
                 if (error.response.status === 404 || error.response.status === 401) {
-                    dispatch(errorMessageEmail(error.response.data.error))
+                    dispatch(setErrorMessage(error.response.data.error))
                 }
             })
 }

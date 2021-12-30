@@ -1,7 +1,7 @@
 import {userAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {setProfile} from "./profileReducer";
-import {setAppStatus} from "./appReducer";
+import {setAppStatus, setErrorMessage} from "./appReducer";
 import {LoginParamsType} from "../api/types";
 
 
@@ -48,8 +48,10 @@ export const loginThunk = (data: LoginParamsType) => {
                 dispatch(setIsLoggedInAC(true))
             })
             .catch(e => {
+                console.log(e)
                     const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
                     dispatch(errorTextResp(error))
+                    dispatch(setErrorMessage(error))
                 }
             )
             .finally(() => {
@@ -83,13 +85,18 @@ export const logOut = () => (dispatch: Dispatch) => {
         .catch(e => {
             const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
             dispatch(errorTextResp(error))
+            dispatch(setAppStatus('failed'))
         })
+        .finally(() => {
+        dispatch(setAppStatus('success'))
+    })
 
 
 }
 
 
 export const authMe = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatus('loading'))
     userAPI.me()
         .then(res => {
             dispatch(setProfile(res.data))
@@ -101,4 +108,7 @@ export const authMe = () => (dispatch: Dispatch) => {
             dispatch(errorTextResp(error))
             dispatch(setAppStatus('failed'))
         })
+        .finally(() => {
+        dispatch(setAppStatus('success'))
+    })
 }

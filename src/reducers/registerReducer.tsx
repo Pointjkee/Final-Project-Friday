@@ -1,5 +1,6 @@
 import {Dispatch} from "redux"
 import {userAPI} from "../api/api"
+import {setErrorMessage} from "./appReducer";
 
 const initialState = {
     error: null,
@@ -43,6 +44,7 @@ export const registerThunk = (email: string, password: string) => (dispatch: Dis
         .catch((error) => {
             if (error.response.status === 400) {
                 dispatch(setErrorAC(error.response.data.error))
+                dispatch(setErrorMessage(error.response.data.error))
             }
         })
 }

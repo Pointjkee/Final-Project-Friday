@@ -25,9 +25,10 @@ export const Rating = ({cardId, cardPack_id, value, setValue}: RatingPropsType) 
     return (
         <div className={s.container}>
             <div className={s.starWrapper}>
-                <Star setValue={() => {
+                <Star setValue={
+                    () => {
                     setValue(1)
-                }} select={value > 0}/>
+                }} select={true}/>
                 <Star setValue={() => {
                     setValue(2)
                 }} select={value > 1}/>

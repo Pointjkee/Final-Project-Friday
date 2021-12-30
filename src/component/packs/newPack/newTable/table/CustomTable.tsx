@@ -1,11 +1,12 @@
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../../store/store";
 import {cardPacksType} from "../../../../../reducers/packReducer";
-import {Paper} from "@material-ui/core";
+import {LinearProgress, Paper} from "@material-ui/core";
 import style from "./CustomTable.module.css";
 import {Row} from "../tableRow/tableRow";
 import * as React from "react";
 import {SortButton} from "./SortButton";
+import {RequestStatusType} from "../../../../../reducers/appReducer";
 
 type PropsType = {
     text: string
@@ -13,6 +14,7 @@ type PropsType = {
 
 export const CustomTable = ({text}:PropsType) => {
     const cardPacks = useSelector<AppRootStateType, cardPacksType>(s => s.pack.cardPacks)
+    const status = useSelector<AppRootStateType, RequestStatusType>(s => s.app.statusPack)
     return (
         <div>
             <Paper style={{boxShadow: "#bde0ea -2px 15px 15px 1px"}}>
@@ -34,7 +36,9 @@ export const CustomTable = ({text}:PropsType) => {
                     </div>
 
                 </div>
-
+                <div style={{height:"1px"}}>
+                    {status === 'loading' && <LinearProgress/>}
+                </div>
                 {cardPacks.map((s, index) => {
                     return <div  key={s._id} style={index % 2 === 0 ? {background: "white"} : {background: "#ECECF9"}}>
                             <Row

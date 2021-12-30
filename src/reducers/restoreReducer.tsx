@@ -1,10 +1,10 @@
 import {Dispatch} from "redux";
 import {userAPI} from "../api/api";
+import {setErrorMessage} from "./appReducer";
 
 
 const initialState = {
     statusOfSentMessage: false,
-    error: "",
     email: "",
 }
 type InitialStateType = typeof initialState
@@ -14,9 +14,6 @@ export const restorePassReducer = (state: InitialStateType = initialState, actio
         case "RESTORE/CHANGE-STATUS-MESSAGE": {
             return {...state, statusOfSentMessage: action.status}
         }
-        case "RESTORE/ERROR-MESSAGE": {
-            return {...state, error: action.error}
-        }
         case "RESTORE/SET-EMAIL": {
             return {...state, email: action.email}
         }
@@ -25,12 +22,9 @@ export const restorePassReducer = (state: InitialStateType = initialState, actio
     }
 }
 
-export type ActionRestoreType = StatusMessageType | ErrorMessageEmailType | SetEmailType
+export type ActionRestoreType = StatusMessageType  | SetEmailType
 type StatusMessageType = ReturnType<typeof changeStatusMessage>
 export const changeStatusMessage = (status: boolean) => ({type: "RESTORE/CHANGE-STATUS-MESSAGE", status} as const)
-
-type ErrorMessageEmailType = ReturnType<typeof errorMessageEmail>
-export const errorMessageEmail = (error: string) => ({type: "RESTORE/ERROR-MESSAGE", error} as const)
 
 type SetEmailType = ReturnType<typeof setEmail>
 export const setEmail = (email: string) => ({type: "RESTORE/SET-EMAIL", email} as const)
@@ -44,8 +38,9 @@ export const SendInstructionToEmail = (forgot: ForgotType) => (dispatch: Dispatc
                 dispatch(changeStatusMessage(true))
         })
         .catch(error => {
+            console.log(error.response.data.error)
                 if (error.response.status === 404 || error.response.status === 401) {
-                    dispatch(errorMessageEmail(error.response.data.error))
+                    dispatch(setErrorMessage(error.response.data.error))
                 }
             }
         )

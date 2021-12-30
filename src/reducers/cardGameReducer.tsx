@@ -8,7 +8,7 @@ const initialState = {
     card: {} as CardType,
     allCards: null as null | CardType | CardType[],
     cardGameStatus: 'success' as LoadingCardGameType,
-    markValue: 0,
+    markValue: 1,
     showAnswer: false
 }
 
@@ -46,7 +46,7 @@ export const {setGameStatus, setMarkValue, setShowAnswer, setAllCards, setCard} 
 export const gameInit = (cardsPack_id: string | undefined) => (dispatch: Dispatch<any>) => {
     dispatch(setGameStatus({cardGameStatus: 'loading'}))
     dispatch(setShowAnswer({showAnswer: false}))
-    dispatch(setMarkValue({markValue: 0}))
+    dispatch(setMarkValue({markValue: 1}))
     cardsAPI.getCards({cardsPack_id, page: 1, pageCount: 100})
         .then(res => {
             dispatch(setAllCards({allCards: res.data.cards}))

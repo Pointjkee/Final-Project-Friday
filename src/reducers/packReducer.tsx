@@ -1,6 +1,7 @@
 import {packAPI} from "../api/api";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppRootStateType} from "../store/store";
+import {setErrorMessage, setPackStatus} from "./appReducer";
 
 const initialState = {
     cardPacks: [{
@@ -26,9 +27,11 @@ const initialState = {
 }
 
 
-export const getPack = createAsyncThunk('pack/getPack', async (params: GetParamsType | void) => {
-    const res = await packAPI.getPack(params)
-    return res.data
+export const getPack = createAsyncThunk('pack/getPack', async (params: GetParamsType | void,{dispatch}) => {
+    dispatch(setPackStatus('loading'));
+    const res = await packAPI.getPack(params);
+    dispatch(setPackStatus('success'));
+    return res.data;
 })
 
 
@@ -36,23 +39,29 @@ export const addPack = createAsyncThunk('pack/addPack',
     async (data: PostPackType|void, {dispatch, getState}) => {
         const value = getState() as AppRootStateType
         let user_id = value.profile.profile._id !== null && value.app.isMePack? value.profile.profile._id: "";
-        await packAPI.postPack(data)
-        dispatch(getPack({pageCount: value.pack.pageCount,user_id}))
+        dispatch(setPackStatus('loading'));
+        await packAPI.postPack(data);
+        dispatch(getPack({pageCount: value.pack.pageCount,user_id}));
+        dispatch(setPackStatus('success'));
     })
 
 export const deletePack = createAsyncThunk('pack/deletePack',
     async (param: { id: string, packName: string }, {dispatch, getState}) => {
+        dispatch(setPackStatus('loading'))
         const value = getState() as AppRootStateType
         let user_id = value.profile.profile._id !== null && value.app.isMePack? value.profile.profile._id: "";
         await packAPI.deletePack(param.id)
-        dispatch(getPack({packName: param.packName,user_id, pageCount: value.pack.pageCount, page: value.pack.page}))
+        dispatch(getPack({packName: param.packName,user_id, pageCount: value.pack.pageCount, page: value.pack.page}));
+        dispatch(setPackStatus('success'));
     })
 
 export const updatePack = createAsyncThunk('pack/updatePack', async (data: UpdatePackType, {dispatch, getState}) => {
+    dispatch(setPackStatus('loading'))
     packAPI.updatePack(data).then(() => {
         const value = getState() as AppRootStateType
         let user_id = value.profile.profile._id !== null && value.app.isMePack? value.profile.profile._id: "";
         dispatch(getPack({pageCount: value.pack.pageCount,user_id}))
+        dispatch(setPackStatus('success'))
     })
 })
 
@@ -84,7 +93,7 @@ export const slice = createSlice({
     }
 });
 
-export const {setPageCount,setCurrentPage,setMaxCardsCount,setMinCardsCount} = slice.actions
+export const {setPageCount,setMaxCardsCount,setMinCardsCount} = slice.actions
 
 export const packReducer = slice.reducer
 

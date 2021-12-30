@@ -7,6 +7,7 @@ import {AppRootStateType} from "./store/store";
 import {RequestStatusType} from "./reducers/appReducer";
 import {authMe} from "./reducers/authReducer";
 import Snowfall from 'react-snowfall'
+import {ErrorAlert} from "./common/errorAlert/ErrorAlert";
 
 function App() {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status);
@@ -25,6 +26,7 @@ function App() {
         <div className="App">
             <Snowfall snowflakeCount={200}/>
             <RoutesC/>
+            <ErrorAlert/>
         </div>
     )
 }

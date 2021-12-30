@@ -13,8 +13,9 @@ export default function SliderCustom() {
     const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
     const pageSize = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
     const sortPacks = useSelector<AppRootStateType, string>(s => s.app.sortPacks)
-    const [value, setValue] = React.useState<number[]>([min, max]);
     const dispatch = useDispatch()
+    const [value, setValue] = React.useState<number[]>([min, max]);
+    console.log(value)
 
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
     const meUserId = useSelector<AppRootStateType, string | null>(s => s.profile.profile._id)

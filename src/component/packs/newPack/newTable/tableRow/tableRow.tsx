@@ -17,15 +17,6 @@ type RowPropsType = {
     text: string
 }
 
-
-let buttonWrapper = {
-    alignItems: "center",
-    width: "80%",
-    height: "10px",
-    display: "flex",
-    justifyContent: "space-around",
-}
-
 export const Row = ({name, cards, update, createdName, cardUserId, packId, text}: RowPropsType) => {
     const meProfileId = useSelector<AppRootStateType, string | null>(s => s.profile.profile._id)
     const navigate = useNavigate()
@@ -48,7 +39,7 @@ export const Row = ({name, cards, update, createdName, cardUserId, packId, text}
                 <div className={style.rowText} style={{width: "100%"}}>{update}</div>
                 <div className={style.rowText}>{createdName}</div>
 
-                <div style={buttonWrapper}>
+                <div className={style.buttonWrapper}>
 
                     {cardUserId === meProfileId &&
                     <>
@@ -56,9 +47,9 @@ export const Row = ({name, cards, update, createdName, cardUserId, packId, text}
                         <ModalEdit title={name} packId={packId}/>
                     </>}
 
-                        <Button style={{width: "30%"}} size={"small"} variant={"contained"}
-                                color={"secondary"}
-                                onClick={onCardsNavigateClick}>Look</Button>
+                    <Button style={{width: "30%"}} size={"small"} variant={"contained"}
+                            color={"secondary"}
+                            onClick={onCardsNavigateClick}>Look</Button>
                     {cards > 0 && <>
                         <Button
                             style={{width: "30%"}} size={"small"} variant={"contained"}

@@ -6,7 +6,7 @@ import {getPack} from "../../reducers/packReducer";
 import {Paper} from "@material-ui/core";
 import style from "./newPack/newTable/table/CustomTable.module.css";
 import {InterfacePack} from "./newPack/newTable/interfacePack/InterfacePack";
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {resetCardsTC} from "../../reducers/cardReducer";
 import s from "../cards/CardsTable.module.css";
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
@@ -21,6 +21,8 @@ export const Packs = () => {
     const pageCount = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
     const sortPacks = useSelector<AppRootStateType, string>(s => s.app.sortPacks)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
 
     let user_id = meUserId !== null && isMePack ? meUserId : "";
 
@@ -33,6 +35,10 @@ export const Packs = () => {
         dispatch(resetCardsTC())
         dispatch(changeDisabledStatus(false))
 
+    }
+
+    if (!isLoggedIn) {
+        return <Navigate to='/login'/>
     }
 
     return (

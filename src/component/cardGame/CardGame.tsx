@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {useEffect} from 'react';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
@@ -27,7 +26,7 @@ export default function CardGame() {
         dispatch(gameInit(id))
     }, [])
 
-    const onSetValueClick = (value: number) => {
+    const onSetValueClick = (value = 1 as number) => {
         dispatch(setMarkValue({markValue: value}))
     }
 

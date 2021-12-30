@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
-import {setAppStatus} from "./appReducer";
+import {setAppStatus, setErrorMessage} from "./appReducer";
 import {setIsLoggedInAC} from "./authReducer";
 import {SetProfileType} from "../api/types";
 
@@ -67,7 +67,7 @@ export const editProfile = (data:SetProfileType) => (dispatch:Dispatch)=>{
         .catch(e =>{
             const error = e.response ? e.response.data.error
                 : (e.message + ', more details in the console');
-            console.log(error)
+            dispatch(setErrorMessage(error))
             dispatch(setAppStatus('failed'))
         })
 
