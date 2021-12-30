@@ -67,15 +67,15 @@ export default function CardGame() {
                         </div>}
                         <div className={s.buttonWrapper}>
                             {!showAnswer &&
-                            <div style={{paddingLeft:'40px'}}>
+                            <div className={s.buttonShow}>
                                 <Button size='small' variant="contained" color='success'
                                         onClick={() => onSetShowAnswerClick(true)}>Show Answer</Button>
                             </div>}
-                            <div className={s.button}>
-                                <div>
-                                    <Button  onClick={onNextCardClick} variant="contained" size='small'>Next</Button>
+                            <div className={s.buttonFooter}>
+                                <div className={s.button}>
+                                    <Button onClick={onNextCardClick} variant="contained" size='small'>Next</Button>
                                 </div>
-                                <div>
+                                <div className={s.button}>
                                     <Button size='small' variant="contained" color='secondary'
                                             onClick={onCancelClick}>Cancel</Button>
                                 </div>

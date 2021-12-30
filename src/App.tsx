@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
 import {RequestStatusType} from "./reducers/appReducer";
 import {authMe} from "./reducers/authReducer";
-
+import Snowfall from 'react-snowfall'
 
 function App() {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status);
@@ -23,6 +23,7 @@ function App() {
 
     return (
         <div className="App">
+            <Snowfall snowflakeCount={200}/>
             <RoutesC/>
         </div>
     )
