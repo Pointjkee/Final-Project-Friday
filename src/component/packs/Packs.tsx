@@ -10,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {resetCardsTC} from "../../reducers/cardReducer";
 import s from "../cards/CardsTable.module.css";
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import {changeDisabledStatus} from "../../reducers/appReducer";
 
 export const Packs = () => {
     const dispatch = useDispatch()
@@ -17,19 +18,21 @@ export const Packs = () => {
     const meUserId = useSelector<AppRootStateType, string | null>(s => s.profile.profile._id)
     const min = useSelector<AppRootStateType, number>(s => s.pack.minCardsCount)
     const max = useSelector<AppRootStateType, number>(s => s.pack.maxCardsCount)
-    const pageSize = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
-    const page = useSelector<AppRootStateType, number>(s => s.pack.page)
+    const pageCount = useSelector<AppRootStateType, number>(s => s.pack.pageCount)
     const isMePack = useSelector<AppRootStateType, boolean>(s => s.app.isMePack)
+    const sortPacks = useSelector<AppRootStateType, string>(s => s.app.sortPacks)
 
     let user_id = meUserId !== null && isMePack ? meUserId : "";
 
     useEffect(() => {
-        dispatch(getPack({pageCount: pageSize,min,max, user_id}))
+        dispatch(getPack({pageCount,sortPacks, min, max, user_id}))
     }, [isMePack])
 
     const onBackClick = () => {
         navigate(-1)
         dispatch(resetCardsTC())
+        dispatch(changeDisabledStatus(false))
+
     }
 
     return (

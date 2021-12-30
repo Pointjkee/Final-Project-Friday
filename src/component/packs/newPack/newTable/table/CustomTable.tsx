@@ -5,6 +5,7 @@ import {Paper} from "@material-ui/core";
 import style from "./CustomTable.module.css";
 import {Row} from "../tableRow/tableRow";
 import * as React from "react";
+import {SortButton} from "./SortButton";
 
 type PropsType = {
     text: string
@@ -16,11 +17,22 @@ export const CustomTable = ({text}:PropsType) => {
         <div>
             <Paper style={{boxShadow: "#bde0ea -2px 15px 15px 1px"}}>
                 <div className={style.tableHeader}>
-                    <div className={style.textHeader} style={{textAlign: "start"}}>Name</div>
-                    <div className={style.textHeader} style={{width: "30%"}}>Cards</div>
-                    <div className={style.textHeader}>Last Updated</div>
-                    <div className={style.textHeader} style={{width: "100%"}}>Created by</div>
-                    <div className={style.textHeader} style={{width: "80%"}}>Actions</div>
+                    <div className={style.textHeader}>
+                        <div className={style.searchHeader} style={{justifyContent: "start"}}>Name <SortButton sortTitle1={"1name"} sortTitle0={"0name"}/></div>
+                    </div>
+                    <div className={style.textHeader} style={{width: "30%"}}>
+                        <div className={style.searchHeader}>Cards <SortButton sortTitle0={"0cardsCount"} sortTitle1={"1cardsCount"}/></div>
+                    </div>
+                    <div className={style.textHeader}>
+                        <div className={style.searchHeader} style={{width: "100%"}}>Last Updated <SortButton sortTitle1={"1updated"} sortTitle0={"0updated"}/></div>
+                    </div>
+                    <div className={style.textHeader}>
+                          <div className={style.searchHeader}>Created by<SortButton sortTitle1={"1user_name"} sortTitle0={"0user_name"}/></div>
+                    </div>
+                    <div className={style.textHeader} style={{width: "80%"}}>
+                      Actions
+                    </div>
+
                 </div>
 
                 {cardPacks.map((s, index) => {
