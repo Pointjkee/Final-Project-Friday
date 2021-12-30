@@ -55,10 +55,11 @@ export const Row = ({name, cards, update, createdName, cardUserId, packId, text}
                         <ModalDelete packId={packId} text={text}/>
                         <ModalEdit title={name} packId={packId}/>
                     </>}
-                    {cards > 0 && <>
+
                         <Button style={{width: "30%"}} size={"small"} variant={"contained"}
                                 color={"secondary"}
                                 onClick={onCardsNavigateClick}>Look</Button>
+                    {cards > 0 && <>
                         <Button
                             style={{width: "30%"}} size={"small"} variant={"contained"}
                             color={"secondary"}
