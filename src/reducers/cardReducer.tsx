@@ -29,7 +29,8 @@ const initialState = {
     page: 0,
     pageCount: 4,
     packUserId: '' as string,
-    loadingStatus: 'success' as LoadingCardType
+    loadingStatus: 'success' as LoadingCardType,
+    cardError: ''
 }
 
 
@@ -50,11 +51,14 @@ export const slice = createSlice({
         statusCard(state,action:PayloadAction<{status:LoadingCardType}>){
           state.loadingStatus = action.payload.status
         },
+        setError(state,action:PayloadAction<{error:string}>){
+            state.cardError = action.payload.error
+        }
     }
 })
 
 export const cardReducer = slice.reducer
-export const {setCards,setPage,resetCards,statusCard} = slice.actions
+export const {setCards,setPage,resetCards,statusCard,setError} = slice.actions
 
 
 
@@ -79,6 +83,7 @@ export const getCards = (id: string | undefined) => (dispatch: Dispatch, getStat
         })
         .catch(error => {
             console.log(error)
+            dispatch(setError({error:error}))
             dispatch(statusCard({status:'error'}))
         })
 
@@ -98,6 +103,7 @@ export const setCard = (card:NewCardsType)=>(dispatch:Dispatch<any>)=>{
         )
         .catch(error=>{
             console.log(error)
+            dispatch(setError({error:error}))
             dispatch(statusCard({status:'error'}))
         })
 }
@@ -110,6 +116,7 @@ export const updateCard =(updateCard:UpdateCardType,cardsPack_id:string)=>(dispa
         })
         .catch(error=>{
             console.log(error)
+            dispatch(setError({error:error}))
             dispatch(statusCard({status:'error'}))
         })
 }
@@ -123,6 +130,7 @@ export const deleteCard =(cardId:string,cardsPack_id:string)=>(dispatch:Dispatch
         })
         .catch(error=>{
             console.log(error)
+            dispatch(setError({error:error}))
             dispatch(statusCard({status:'error'}))
         })
 }
