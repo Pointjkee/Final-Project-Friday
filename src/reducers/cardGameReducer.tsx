@@ -9,7 +9,9 @@ const initialState = {
     allCards: null as null | CardType | CardType[],
     cardGameStatus: 'success' as LoadingCardGameType,
     markValue: 0,
-    showAnswer: false
+    showAnswer: false,
+    gameError: '',
+
 }
 
 export type LoadingCardGameType = 'loading' | 'success' | 'error'
@@ -33,14 +35,16 @@ export const slice = createSlice({
         },
         setCard(state, action: PayloadAction<{ card: CardType }>) {
             state.card = action.payload.card
+        },
+        setGameError(state, action: PayloadAction<{ gameError: string }>) {
+            state.gameError = action.payload.gameError
         }
-
     }
 })
 
 
 export const cardGameReducer = slice.reducer
-export const {setGameStatus, setMarkValue, setShowAnswer, setAllCards, setCard} = slice.actions
+export const {setGameStatus, setMarkValue, setShowAnswer, setAllCards, setCard, setGameError} = slice.actions
 
 
 export const gameInit = (cardsPack_id: string | undefined) => (dispatch: Dispatch<any>) => {
@@ -55,6 +59,7 @@ export const gameInit = (cardsPack_id: string | undefined) => (dispatch: Dispatc
         })
         .catch(err => {
                 console.log(err)
+                dispatch(setGameError({gameError: err}))
                 dispatch(setGameStatus({cardGameStatus: 'error'}))
             }
         )
@@ -69,6 +74,7 @@ export const setMark = (grade: number, cardId: string, cardPack_id: string | und
         })
         .catch(err => {
             console.log(err)
+            dispatch(setGameError({gameError: err}))
             dispatch(setGameStatus({cardGameStatus: 'error'}))
         })
 }
