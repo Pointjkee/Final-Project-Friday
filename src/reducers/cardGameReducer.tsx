@@ -57,9 +57,9 @@ export const gameInit = (cardsPack_id: string | undefined) => (dispatch: Dispatc
             dispatch(setCard({card: getCard(res.data.cards)}))
             dispatch(setGameStatus({cardGameStatus: 'success'}))
         })
-        .catch(err => {
-                console.log(err)
-                dispatch(setGameError({gameError: err}))
+        .catch(error => {
+                console.log(error)
+                dispatch(setGameError({gameError: error.response.data.error}))
                 dispatch(setGameStatus({cardGameStatus: 'error'}))
             }
         )
@@ -72,9 +72,9 @@ export const setMark = (grade: number, cardId: string, cardPack_id: string | und
             dispatch(gameInit(cardPack_id))
             dispatch(setGameStatus({cardGameStatus: 'success'}))
         })
-        .catch(err => {
-            console.log(err)
-            dispatch(setGameError({gameError: err}))
+        .catch(error => {
+            console.log(error)
+            dispatch(setGameError({gameError: error.response.data.error}))
             dispatch(setGameStatus({cardGameStatus: 'error'}))
         })
 }
