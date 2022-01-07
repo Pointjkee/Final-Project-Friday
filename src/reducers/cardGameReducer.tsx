@@ -8,8 +8,9 @@ const initialState = {
     card: {} as CardType,
     allCards: null as null | CardType | CardType[],
     cardGameStatus: 'success' as LoadingCardGameType,
-    markValue: 1,
-    showAnswer: false
+    markValue: 0,
+    showAnswer: false,
+    gameError: '',
 }
 
 export type LoadingCardGameType = 'loading' | 'success' | 'error'
@@ -33,14 +34,16 @@ export const slice = createSlice({
         },
         setCard(state, action: PayloadAction<{ card: CardType }>) {
             state.card = action.payload.card
+        },
+        setGameError(state, action: PayloadAction<{ gameError: string }>) {
+            state.gameError = action.payload.gameError
         }
-
     }
 })
 
 
 export const cardGameReducer = slice.reducer
-export const {setGameStatus, setMarkValue, setShowAnswer, setAllCards, setCard} = slice.actions
+export const {setGameStatus, setMarkValue, setShowAnswer, setAllCards, setCard, setGameError} = slice.actions
 
 
 export const gameInit = (cardsPack_id: string | undefined) => (dispatch: Dispatch<any>) => {
@@ -53,8 +56,9 @@ export const gameInit = (cardsPack_id: string | undefined) => (dispatch: Dispatc
             dispatch(setCard({card: getCard(res.data.cards)}))
             dispatch(setGameStatus({cardGameStatus: 'success'}))
         })
-        .catch(err => {
-                console.log(err)
+        .catch(error => {
+                console.log(error)
+                dispatch(setGameError({gameError: error.response.data.error}))
                 dispatch(setGameStatus({cardGameStatus: 'error'}))
             }
         )
@@ -67,8 +71,9 @@ export const setMark = (grade: number, cardId: string, cardPack_id: string | und
             dispatch(gameInit(cardPack_id))
             dispatch(setGameStatus({cardGameStatus: 'success'}))
         })
-        .catch(err => {
-            console.log(err)
+        .catch(error => {
+            console.log(error)
+            dispatch(setGameError({gameError: error.response.data.error}))
             dispatch(setGameStatus({cardGameStatus: 'error'}))
         })
 }

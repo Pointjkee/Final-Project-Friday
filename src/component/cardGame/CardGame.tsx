@@ -10,6 +10,7 @@ import {CardType} from "../../reducers/cardReducer";
 import {Rating} from "./raiting/Rating";
 import {Preloader} from "../../common/preloader/Preloader";
 import s from './CardGame.module.css'
+import {Alert} from "@mui/material";
 
 
 export default function CardGame() {
@@ -20,6 +21,7 @@ export default function CardGame() {
     const status = useSelector<AppRootStateType, LoadingCardGameType>(state => state.game.cardGameStatus)
     const showAnswer = useSelector<AppRootStateType, boolean>(state => state.game.showAnswer)
     const markValue = useSelector<AppRootStateType, number>(state => state.game.markValue)
+    const error = useSelector<AppRootStateType, string>(state => state.game.gameError)
 
 
     useEffect(() => {
@@ -49,6 +51,7 @@ export default function CardGame() {
             aria-describedby="modal-modal-description"
         >
             <div className={s.container}>
+                {error && <Alert severity="error">{error}</Alert>}
                 <div className={s.title}>
                     Learn Cards
                 </div>
